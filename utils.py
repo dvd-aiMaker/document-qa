@@ -14,8 +14,6 @@ import pandas as pd
 from prompt import GPT_prompt
 
 
-with open('config.json') as config_file:
-    config = json.load(config_file)
 
 MODEL = "gpt-4o" #config['gpt_model'] # "gpt-4o"
 #PDF = config['invoice_path']
@@ -28,7 +26,6 @@ def encode_image(image_path):
         return base64.b64encode(image_file.read()).decode('utf-8')
     
 def pdf2img(pdf_path,folder_path):
-
     if os.path.isdir(folder_path):
         shutil.rmtree(folder_path)
         os.makedirs(folder_path, exist_ok=True)
@@ -118,7 +115,7 @@ def chat_multi_vision(image_paths, api_key, prompt):
 
 
 
-def chat_df(image_paths):
+def chat_df(image_paths, api_key, prompt1):
     prompt1 = GPT_prompt()
     response1 = chat_multi_vision(image_paths, api_key, prompt1)
 
@@ -260,3 +257,28 @@ eu_country_codes = [
     "SE",  # Suède
     "CH",  # Suisse
     ]
+
+def convert_pdf_to_images(pdf_bytes):
+    images = convert_from_bytes(pdf_bytes, fmt='jpg', dpi=300)
+    return images, len(images)
+
+# Fonction pour gérer le téléchargement et la conversion
+def on_upload_change(change):
+    folder_path = "/content/data"
+
+    if os.path.isdir(folder_path):
+        shutil.rmtree(folder_path)
+        os.makedirs(folder_path, exist_ok=True)
+    else:
+        os.makedirs(folder_path, exist_ok=True)
+
+    for filename, file_info in change['new'].items():
+        pdf_bytes = file_info['content']
+        images, number_images = convert_pdf_to_images(pdf_bytes)
+
+        images_path = []
+        for i, image in enumerate(images):
+            image_path = os.path.join(folder_path, f'page_{i+1}.jpg')
+            image.save(image_path, 'JPEG')
+            images_path.append(image_path)
+    print("TEST", number_images)
