@@ -270,13 +270,11 @@ def on_upload_change(change):
     else:
         os.makedirs(folder_path, exist_ok=True)
 
-    for filename, file_info in change['new'].items():
-        pdf_bytes = file_info['content']
-        images, number_images = convert_pdf_to_images(pdf_bytes)
+    images, number_images = convert_pdf_to_images(change)
 
-        images_path = []
-        for i, image in enumerate(images):
-            image_path = os.path.join(folder_path, f'page_{i+1}.jpg')
-            image.save(image_path, 'JPEG')
-            images_path.append(image_path)
+    images_path = []
+    for i, image in enumerate(images):
+        image_path = os.path.join(folder_path, f'page_{i+1}.jpg')
+        image.save(image_path, 'JPEG')
+        images_path.append(image_path)
     print("TEST", number_images)
