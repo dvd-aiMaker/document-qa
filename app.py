@@ -20,7 +20,7 @@ import base64
 
 import fitz  # PyMuPDF
 
-from utils import pdf2img, encode_image, pdf_to_jpg, chat_df, compute_df
+from utils import pdf2img, encode_image, pdf_to_jpg, chat_df, compute_df, on_upload_change
 
 # Show title and description.
 st.title("📄 CustomSmart")
@@ -48,7 +48,7 @@ else:
     # Charger un fichier PDF si nécessaire
     uploaded_file = st.file_uploader("Téléchargez la facture comme fichier PDF", type="pdf")
 
-    folder = xx
+    on_upload_change(uploaded_file)
 
     image_paths = []
     for img in sorted(glob.glob(folder+"*jpg")):
