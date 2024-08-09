@@ -1,5 +1,5 @@
 from pdf2image import convert_from_path
-import os 
+import os,stat
 import shutil
 from pathlib import Path
 import base64
@@ -9,10 +9,7 @@ import requests
 from openai import OpenAI
 import pandas as pd
 
-
-
 from prompt import GPT_prompt
-
 
 
 MODEL = "gpt-4o" #config['gpt_model'] # "gpt-4o"
@@ -265,6 +262,7 @@ def convert_pdf_to_images(pdf_bytes):
 # Fonction pour gérer le téléchargement et la conversion
 def on_upload_change(change):
     folder_path = "/content/data"
+    os.chmod(folder_path, stat.S_IRUSR | stat.S_IWUSR | stat.S_IXUSR)
 
     if os.path.isdir(folder_path):
         shutil.rmtree(folder_path)
