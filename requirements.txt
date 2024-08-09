@@ -1,2 +1,5 @@
 streamlit
 openai
+pdf2image
+pillow
+PyMuPDF
