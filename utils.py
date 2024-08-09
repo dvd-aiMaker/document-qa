@@ -1,4 +1,5 @@
 from pdf2image import convert_from_path
+from pdf2image import convert_from_bytes
 import os,stat
 import shutil
 from pathlib import Path
