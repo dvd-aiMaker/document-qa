@@ -7,12 +7,16 @@ st.write(
     "Télécharge une facture afin de faire une déclaration douanière – CustomGPT va t'assister! "
     "Pour utiliser ce logiciel, renseignes la clé API."
 )
+# Menu déroulant
+Choix1 = ["Grosfillex", "Ponctuel"]
+
+# Ajouter un menu déroulant à l'application
+selection = st.selectbox("Sélectionnez une option :", options)
 
 # Ask user for their OpenAI API key via `st.text_input`.
 # Alternatively, you can store the API key in `./.streamlit/secrets.toml` and access it
 # via `st.secrets`, see https://docs.streamlit.io/develop/concepts/connections/secrets-management
 openai_api_key = st.text_input("OpenAI API Key", type="password")
-client = st.text_input("Nom du client", type="password")
 
 if not openai_api_key:
     st.info("Please add your OpenAI API key to continue.", icon="🗝️")
