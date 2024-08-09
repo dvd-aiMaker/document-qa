@@ -24,7 +24,7 @@ import fitz  # PyMuPDF
 st.title("📄 CustomSmart")
 st.write(
     "Télécharge une facture afin de faire une déclaration douanière – CustomGPT va t'assister! "
-    "Pour utiliser ce logiciel, renseignes la clé API.")
+    "Pour utiliser ce logiciel, renseigne la clé API.")
 
 # Ask user for their OpenAI API key via `st.text_input`.
 # Alternatively, you can store the API key in `./.streamlit/secrets.toml` and access it
@@ -33,17 +33,16 @@ openai_api_key = st.text_input("OpenAI API Key", type="password")
 
 if not openai_api_key:
     st.info("Please add your OpenAI API key to continue.", icon="🗝️")
-#else:
-
-# Menu déroulant
-Client = ["Grosfillex", "Ponctuel"]
-
-# Ajouter un menu déroulant à l'application
-selection = st.selectbox("Sélectionnez un client :", Client)
-
-# Afficher l'option sélectionnée
-st.write(f"Téléchargez la facture du client {selection}")
-
-# Charger un fichier PDF si nécessaire
-uploaded_file = st.file_uploader("Téléchargez la facture comme fichier PDF", type="pdf")
+else:
+    # Menu déroulant
+    Client = ["Grosfillex", "Ponctuel"]
+    
+    # Ajouter un menu déroulant à l'application
+    selection = st.selectbox("Sélectionnez un client :", Client)
+    
+    # Afficher l'option sélectionnée
+    st.write(f"Téléchargez la facture du client {selection}")
+    
+    # Charger un fichier PDF si nécessaire
+    uploaded_file = st.file_uploader("Téléchargez la facture comme fichier PDF", type="pdf")
 
