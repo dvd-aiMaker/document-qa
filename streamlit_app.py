@@ -11,7 +11,16 @@ st.write(
 Choix1 = ["Grosfillex", "Ponctuel"]
 
 # Ajouter un menu déroulant à l'application
-selection = st.selectbox("Sélectionnez une option :", options)
+selection = st.selectbox("Sélectionnez un client :", Choix1)
+
+# Afficher l'option sélectionnée
+st.write(f"Vous avez sélectionné : {selection}")
+
+# Exécuter une action basée sur la sélection
+if selection == "Grosfillex":
+    st.write("Vous avez choisi le client Grosfillex.")
+elif selection == "Ponctuel":
+    st.write("Vous avez choisi un client Ponctuel.")
 
 # Ask user for their OpenAI API key via `st.text_input`.
 # Alternatively, you can store the API key in `./.streamlit/secrets.toml` and access it
