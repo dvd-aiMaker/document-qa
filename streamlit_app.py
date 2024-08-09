@@ -5,8 +5,16 @@ from openai import OpenAI
 st.title("📄 CustomSmart")
 st.write(
     "Télécharge une facture afin de faire une déclaration douanière – CustomGPT va t'assister! "
-    "Pour utiliser ce logiciel, renseignes la clé API."
-)
+    "Pour utiliser ce logiciel, renseignes la clé API.")
+
+# Ask user for their OpenAI API key via `st.text_input`.
+# Alternatively, you can store the API key in `./.streamlit/secrets.toml` and access it
+# via `st.secrets`, see https://docs.streamlit.io/develop/concepts/connections/secrets-management
+openai_api_key = st.text_input("OpenAI API Key", type="password")
+
+if not openai_api_key:
+    st.info("Please add your OpenAI API key to continue.", icon="🗝️")
+
 # Menu déroulant
 Choix1 = ["Grosfillex", "Ponctuel"]
 
@@ -16,11 +24,8 @@ selection = st.selectbox("Sélectionnez un client :", Choix1)
 # Afficher l'option sélectionnée
 st.write(f"Vous avez sélectionné : {selection}")
 
-# Exécuter une action basée sur la sélection
-if selection == "Grosfillex":
-    st.write("Vous avez choisi le client Grosfillex.")
-elif selection == "Ponctuel":
-    st.write("Vous avez choisi un client Ponctuel.")
+# Charger un fichier PDF si nécessaire
+uploaded_file = st.file_uploader("Téléchargez un fichier PDF", type="pdf")
 
 # Ask user for their OpenAI API key via `st.text_input`.
 # Alternatively, you can store the API key in `./.streamlit/secrets.toml` and access it
