@@ -96,7 +96,10 @@ else:
         st.dataframe(df_show)
         print("Valeur Totale: ", df_show['Valeur'].sum())
         print("Poids Total: ", df_show["Poids_total"].sum())
-    
+
+        st.markdown("**Resultat de l'Analyse")
+        st.text("Valeur Totale: ", df_show['Valeur'].sum()))
+        st.text("Poids Total: ", df_show["Poids_total"].sum())
     
         print("\n\n ANALYSE:")
         # Filtrage des lignes où Valeur et Valeur_Douane sont nulles
