@@ -32,21 +32,24 @@ st.image("image/vuaillat.jpg", use_column_width=True)
 config = load_config()
 users = config["users"]
 
+connect = False
 
-# Vérification de l'état de connexion
-if not st.session_state.get("logged_in"):
-    st.warning("Veuillez vous connecter pour accéder à l'application.")
-    check_login(users)
-
-else:
-    st.success(f"Bienvenue {st.session_state.username} !")
-    # Afficher le contenu de l'application ici
-    st.write("Vous êtes connecté et pouvez maintenant accéder à l'application.")
+if connect == False:
+    # Vérification de l'état de connexion
+    if not st.session_state.get("logged_in"):
+        st.warning("Veuillez vous connecter pour accéder à l'application.")
+        check_login(users)
+        connect = True
     
-    # Ajouter un bouton de déconnexion
-    if st.button("Se déconnecter"):
-        st.session_state.logged_in = False
-        st.experimental_rerun()
+    else:
+        st.success(f"Bienvenue {st.session_state.username} !")
+        # Afficher le contenu de l'application ici
+        st.write("Vous êtes connecté et pouvez maintenant accéder à l'application.")
+        
+        # Ajouter un bouton de déconnexion
+        if st.button("Se déconnecter"):
+            st.session_state.logged_in = False
+            st.experimental_rerun()
 
 # -----
 
