@@ -60,37 +60,38 @@ else:
     # Charger un fichier PDF si nécessaire
     uploaded_file = st.file_uploader("Téléchargez la facture comme fichier PDF", type="pdf")
 
-    on_upload_change(uploaded_file)
-
-    image_paths = []
-    for img in sorted(glob.glob(folder+"*jpg")):
-        image_paths.append(img)
-
-    print("Extraction is starting from invoice")
-    df = chat_df(image_paths)
-    df_show = compute_df(df)
-
-    df_show["Valeur_totale"] = df_show["Valeur"] + df_show["Valeur_Douane"]
-
-    df_show['Valeur'] = pd.to_numeric(df_show['Valeur'], errors='coerce')
-    df_show["Poids_total"] = pd.to_numeric(df_show['Poids_total'], errors='coerce')
-
-    print("\n\n TABLEAU LISTE MARCHANDISE:")
-    print(df)
-
-    print("\n\n RESULTAT TABLEAU AGREGE:")
-    print(df_show)
-    print("Valeur Totale: ", df_show['Valeur'].sum())
-    print("Poids Total: ", df_show["Poids_total"].sum())
-
-
-    print("\n\n ANALYSE:")
-    # Filtrage des lignes où Valeur et Valeur_Douane sont nulles
-    filtered_df = df[(df['Valeur'] == 0.0) & (df['Valeur_Douane'] == 0.0)]
-    # Extraction des IDs correspondants
-    ids = filtered_df['ID'].tolist()
-    # Affichage des IDs
-    print("Anomalies aux IDs :", ids, "-> Les Valeur et Valeur_Douane sont nulles")
+    if uploaded_file != None:
+        on_upload_change(uploaded_file)
+    
+        image_paths = []
+        for img in sorted(glob.glob(folder+"*jpg")):
+            image_paths.append(img)
+    
+        print("Extraction is starting from invoice")
+        df = chat_df(image_paths)
+        df_show = compute_df(df)
+    
+        df_show["Valeur_totale"] = df_show["Valeur"] + df_show["Valeur_Douane"]
+    
+        df_show['Valeur'] = pd.to_numeric(df_show['Valeur'], errors='coerce')
+        df_show["Poids_total"] = pd.to_numeric(df_show['Poids_total'], errors='coerce')
+    
+        print("\n\n TABLEAU LISTE MARCHANDISE:")
+        print(df)
+    
+        print("\n\n RESULTAT TABLEAU AGREGE:")
+        print(df_show)
+        print("Valeur Totale: ", df_show['Valeur'].sum())
+        print("Poids Total: ", df_show["Poids_total"].sum())
+    
+    
+        print("\n\n ANALYSE:")
+        # Filtrage des lignes où Valeur et Valeur_Douane sont nulles
+        filtered_df = df[(df['Valeur'] == 0.0) & (df['Valeur_Douane'] == 0.0)]
+        # Extraction des IDs correspondants
+        ids = filtered_df['ID'].tolist()
+        # Affichage des IDs
+        print("Anomalies aux IDs :", ids, "-> Les Valeur et Valeur_Douane sont nulles")
 
 
 
