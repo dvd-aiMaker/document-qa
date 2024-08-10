@@ -151,10 +151,10 @@ def chat_df(image_paths, api_key, prompt1):
 
 def compute_df(df_total):
     df = df_total
-    
+
     # Création de la DataFrame pour les origines EU
     df_eu = df[df['Origine'].isin(eu_country_codes)]
-    
+
 
     # Agrégation des données par code douanier pour les origines EU
     df_eu_aggregated = df_eu.groupby('Code_Douane').agg({
@@ -163,7 +163,9 @@ def compute_df(df_total):
     'Valeur_Douane': 'sum',
     'Poids': 'sum',
     'Quantités': 'sum',
-    'Poids_total': 'sum'
+    'Poids_total': 'sum',
+    'Valeur_totale': 'sum',
+    'Montant': 'sum'
     }).reset_index()
     df_eu_aggregated["ORIGINE"] = "EU"
 
@@ -174,7 +176,7 @@ def compute_df(df_total):
 
     # Création de la DataFrame pour les origines hors EU
     df_non_eu = df[~df['Origine'].isin(eu_country_codes)]
-    
+
 
     # Agrégation des données par code douanier pour les origines hors EU
     df_non_eu_aggregated = df_non_eu.groupby('Code_Douane').agg({
@@ -183,7 +185,9 @@ def compute_df(df_total):
     'Valeur_Douane': 'sum',
     'Poids': 'sum',
     'Quantités': 'sum',
-    'Poids_total': 'sum'
+    'Poids_total': 'sum',
+    'Valeur_totale': 'sum',
+    'Montant': 'sum'
     }).reset_index()
     df_non_eu_aggregated["ORIGINE"] = "HORS EU"
 
@@ -194,6 +198,7 @@ def compute_df(df_total):
     # Concaténation des deux DataFrames
     df_combined = pd.concat([df_eu_aggregated, df_non_eu_aggregated], ignore_index=True)
     return df_combined
+
 
 def EU_country(code):
     eu_country_codes = [
