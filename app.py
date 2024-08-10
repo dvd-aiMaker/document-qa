@@ -35,10 +35,10 @@ users = config["users"]
 connect = False
 
 if connect == False:
-    st.image("image/vuaillat.jpg", use_column_width=True)
     # Vérification de l'état de connexion
     if not st.session_state.get("logged_in"):
         st.warning("Veuillez vous connecter pour accéder à l'application.")
+        st.image("image/vuaillat.jpg", use_column_width=True)
         check_login(users)
         connect = True
     
