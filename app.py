@@ -22,7 +22,6 @@ import fitz  # PyMuPDF
 
 from utils import pdf2img, encode_image, pdf_to_jpg, chat_df, compute_df, on_upload_change, install_poppler_utils
 
-install_poppler_utils()
 
 Type_douane = ["Import", "Export"]
 Type_client = ["Régulier", "Ponctuel"]
@@ -64,7 +63,9 @@ else:
 
     if uploaded_file != None:
         print("BUUGGGG", uploaded_file)
-        on_upload_change(uploaded_file.read())
+
+        folder = "./content/data/
+        on_upload_change(uploaded_file.read(),folder)
     
         image_paths = []
         for img in sorted(glob.glob(folder+"*jpg")):
