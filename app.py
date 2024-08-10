@@ -42,6 +42,20 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
+
+# Injecter du CSS pour changer la couleur du texte en vert
+st.markdown(
+    """
+    <style>
+    /* Changer la couleur de tout le texte en vert */
+    .stApp {
+        color: green;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 st.image("image/vuaillat.jpg", use_column_width=True)
 
 # Show title and description.
