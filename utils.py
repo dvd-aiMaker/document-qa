@@ -65,7 +65,8 @@ def pdf_to_jpg(pdf, output_folder):
 
         # Définir la matrice de transformation pour augmenter la résolution
         # Un zoom de 2x2 double la résolution (200 DPI si l'original est 100 DPI)
-        matrix = fitz.Matrix(2, 2)
+        zoomfactor = 4
+        matrix = fitz.Matrix(zoomfactor, zoomfactor)
         
         # Extraire l'image de la page
         pix = page.get_pixmap(matrix=matrix)
