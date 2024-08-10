@@ -1,4 +1,5 @@
 import json
+import streamlit as st
 
 # Fonction pour charger le fichier de configuration
 def load_config():
