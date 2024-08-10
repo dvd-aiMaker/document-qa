@@ -50,7 +50,8 @@ def pdf_to_jpg(pdf_path, output_folder):
     os.chmod("./content", stat.S_IRUSR | stat.S_IWUSR | stat.S_IXUSR)
     os.chmod("./content/data", stat.S_IRUSR | stat.S_IWUSR | stat.S_IXUSR)
     os.chmod(output_folder, stat.S_IRUSR | stat.S_IWUSR | stat.S_IXUSR)
-    output_folder = "/content/data"
+    
+    output_folder = "./content/data"
     os.makedirs(output_folder, exist_ok=True)
 
     # Ouvrir le document PDF
