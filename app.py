@@ -47,9 +47,12 @@ else:
     
     # Proposer à l'utilisateur de choisir entre "Import" et "Export"
     option_Type_client = st.radio("Sélectionnez une option :", Type_client)
-    
-    # Ajouter un menu déroulant à l'application
-    selection = st.selectbox("Sélectionnez un client :", Client)
+
+    if option_Type_client =="Régulier":
+        # Ajouter un menu déroulant à l'application
+        selection = st.selectbox("Sélectionnez un client :", Client)
+    else:
+        selection = "Ponctuel"
     
     # Afficher l'option sélectionnée
     st.write(f"Téléchargez la facture du client {selection}")
