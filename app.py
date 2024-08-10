@@ -22,6 +22,8 @@ import fitz  # PyMuPDF
 
 from utils import pdf2img, encode_image, pdf_to_jpg, chat_df, compute_df, on_upload_change
 
+from prompt import GPT_prompt
+
 Type_client = ["Régulier", "Ponctuel"]
 Type_douane = ["Import", "Export"]
 Client = ["Grosfillex", ""]
@@ -72,7 +74,7 @@ else:
             print("image path :",img ) 
     
         print("Extraction is starting from invoice")
-        df = chat_df(image_paths)
+        df = chat_df(image_paths, openai_api_key, GPT_prompt())
         df_show = compute_df(df)
     
         df_show["Valeur_totale"] = df_show["Valeur"] + df_show["Valeur_Douane"]
