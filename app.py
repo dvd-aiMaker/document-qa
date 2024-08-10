@@ -96,7 +96,7 @@ if st.session_state.get("logged_in"):
 
 
     # Ajouter le chatbot à l'aide de HTML/CSS
-st.markdown(
+    st.markdown(
     """
     <style>
     /* Conteneur du chatbot */
