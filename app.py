@@ -45,6 +45,7 @@ if connect == False:
         st.success(f"Bienvenue {st.session_state.username} !")
         # Afficher le contenu de l'application ici
         st.write("Vous êtes connecté et pouvez maintenant accéder à l'application.")
+        connect = True
         
         # Ajouter un bouton de déconnexion
         if st.button("Se déconnecter"):
