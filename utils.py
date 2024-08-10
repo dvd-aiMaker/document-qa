@@ -74,7 +74,7 @@ def pdf_to_jpg(pdf, output_folder):
 
         # Définir la matrice de transformation pour augmenter la résolution
         # Un zoom de 2x2 double la résolution (200 DPI si l'original est 100 DPI)
-        zoomfactor = 4
+        zoomfactor = 5
         matrix = fitz.Matrix(zoomfactor, zoomfactor)
         
         # Extraire l'image de la page
@@ -140,11 +140,11 @@ def chat_df(image_paths, api_key, prompt1):
     response1 = chat_multi_vision(image_paths, api_key, prompt1)
 
     table1 = response1.json()["choices"][0]['message']['content']
-    st.text(str(table1))
+    #st.text(str(table1))
     
     table1json = table1.split("```json")[1].split("```")[0]
     table1json = table1.split("```json")[1].split("```")[0]
-    st.text(str(table1json))
+    #st.text(str(table1json))
 
     json_str_cleaned = table1json.strip().replace('\n', '').replace('Tableau_A=', '').replace("Tableau_A =", '')
     
