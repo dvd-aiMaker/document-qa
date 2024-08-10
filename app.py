@@ -22,6 +22,11 @@ import fitz  # PyMuPDF
 
 from utils import pdf2img, encode_image, pdf_to_jpg, chat_df, compute_df, on_upload_change
 
+Type_douane = ["Import", "Export"]
+Type_client = ["Régulier", "Ponctuel"]
+Client = ["Grosfillex", ""]
+
+
 # Show title and description.
 st.title("📄 CustomSmart")
 st.write(
@@ -36,8 +41,8 @@ openai_api_key = st.text_input("OpenAI API Key", type="password")
 if not openai_api_key:
     st.info("Please add your OpenAI API key to continue.", icon="🗝️")
 else:
-    # Menu déroulant
-    Client = ["Grosfillex", "Ponctuel"]
+    # Proposer à l'utilisateur de choisir entre "Import" et "Export"
+    option = st.radio("Sélectionnez une option :", ('Import', 'Export'))
     
     # Ajouter un menu déroulant à l'application
     selection = st.selectbox("Sélectionnez un client :", Client)
