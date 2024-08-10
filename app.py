@@ -83,20 +83,16 @@ else:
         df = process_df(df, selection)
         df_show = compute_df(df, selection)
     
-        df_show["Valeur_totale"] = df_show["Valeur"] + df_show["Valeur_Douane"]
+        # df_show["Valeur_totale"] = df_show["Valeur"] + df_show["Valeur_Douane"]
     
-        df_show['Valeur'] = pd.to_numeric(df_show['Valeur'], errors='coerce')
-        df_show["Poids_total"] = pd.to_numeric(df_show['Poids_total'], errors='coerce')
+        # df_show['Valeur'] = pd.to_numeric(df_show['Valeur'], errors='coerce')
+        # df_show["Poids_total"] = pd.to_numeric(df_show['Poids_total'], errors='coerce')
     
         print("\n\n TABLEAU LISTE MARCHANDISE:")
-        #print(df)
         st.dataframe(df)
     
         print("\n\n RESULTAT TABLEAU AGREGE:")
-        #print(df_show)
         st.dataframe(df_show)
-        print("Montant Total: ", df_show['Valeur'].sum())
-        print("Poids Total: ", df_show["Poids_total"].sum())
 
         st.markdown("**Resultat de l'Analyse**")
         if selection == "Ponctuel":
