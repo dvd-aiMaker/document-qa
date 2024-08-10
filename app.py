@@ -84,7 +84,7 @@ Client = ["","Grosfillex"]
 #     unsafe_allow_html=True
 # )
 
-if check_login():
+if st.session_state.get("logged_in"):
     # Show title and description.
     st.title("📄 CustomSmart")
     st.write(
