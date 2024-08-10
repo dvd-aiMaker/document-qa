@@ -20,7 +20,7 @@ import base64
 
 import fitz  # PyMuPDF
 
-from utils import pdf2img, encode_image, pdf_to_jpg, chat_df, compute_df, on_upload_change, install_poppler_utils
+from utils import pdf2img, encode_image, pdf_to_jpg, chat_df, compute_df, on_upload_change
 
 
 Type_douane = ["Import", "Export"]
