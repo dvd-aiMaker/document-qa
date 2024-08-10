@@ -62,8 +62,13 @@ def pdf_to_jpg(pdf, output_folder):
     for page_number in range(len(pdf_document)):
         # Sélectionner la page
         page = pdf_document.load_page(page_number)
+
+        # Définir la matrice de transformation pour augmenter la résolution
+        # Un zoom de 2x2 double la résolution (200 DPI si l'original est 100 DPI)
+        matrix = fitz.Matrix(2, 2)
+        
         # Extraire l'image de la page
-        pix = page.get_pixmap()
+        pix = page.get_pixmap(matrix=matrix)
         # Définir le chemin de sortie pour chaque image
         output_path = f"{output_folder}/page_{page_number + 1}.jpg"
         # Enregistrer l'image
