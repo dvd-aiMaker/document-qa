@@ -25,7 +25,7 @@ from prompt import GPT_prompt
 from build_table import process_df, compute_df
 from login import load_config, check_login
 
-st.image("image/vuaillat.jpg", use_column_width=True)
+
 
 # ----- CONNEXION 
 # Charger les utilisateurs et mots de passe à partir du fichier de configuration
@@ -35,6 +35,7 @@ users = config["users"]
 connect = False
 
 if connect == False:
+    st.image("image/vuaillat.jpg", use_column_width=True)
     # Vérification de l'état de connexion
     if not st.session_state.get("logged_in"):
         st.warning("Veuillez vous connecter pour accéder à l'application.")
@@ -91,6 +92,8 @@ Client = ["","Grosfillex"]
 # )
 
 if st.session_state.get("logged_in"):
+    st.image("image/vuaillat.jpg", use_column_width=True)
+    
     # Show title and description.
     st.title("📄 CustomSmart")
     st.write(
