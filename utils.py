@@ -112,7 +112,7 @@ def chat_multi_vision(image_paths, api_key, prompt):
         }
     ],
     "temperature": 0.1,
-    "top_p": 0.7,
+    "top_p": 0.9999,
     }
 
     response = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload)
