@@ -77,19 +77,15 @@ openai_api_key = st.text_input("OpenAI API Key", type="password")
 if not openai_api_key:
     st.info("Please add your OpenAI API key to continue.", icon="🗝️")
 else:
-    # Proposer à l'utilisateur de choisir entre "Import" et "Export"
     option_Type_client = st.radio("Sélectionnez une option :", Type_client)
 
     if option_Type_client =="Régulier":
-        # Ajouter un menu déroulant à l'application
-        selection = st.selectbox("Sélectionnez un client :", Client)
-        
-        if not selection:
-            # Proposer à l'utilisateur de choisir entre "Import" et "Export"
-            st.info("Renseignez si vous souhaitez faire de l'import ou export.")
-            option_Type_douane = st.radio("Sélectionnez une option :", Type_douane)
-        
-        
+        option_Type_douane = st.radio("Sélectionnez une option :", Type_douane)
+
+        if option_Type_douane=="Export":
+            # Ajouter un menu déroulant à l'application
+            selection = st.selectbox("Sélectionnez un client :", Client)
+           
     else:
         selection = "Ponctuel"
     
