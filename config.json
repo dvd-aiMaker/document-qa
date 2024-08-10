@@ -3,5 +3,5 @@
         "David": "masolution",
         "Manon": "lasolution"
     },
-    "model": "gpt-4o"
+    "gpt_model": "gpt-4o"
 }
