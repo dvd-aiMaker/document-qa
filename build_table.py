@@ -1,4 +1,5 @@
 from prompt import GPT_prompt
+import pandas as pd
 
 eu_country_codes = [
     "AT",  # Autriche
