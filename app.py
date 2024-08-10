@@ -30,8 +30,8 @@ Client = ["Grosfillex", ""]
 # Show title and description.
 st.title("📄 CustomSmart")
 st.write(
-    "Télécharge une facture afin de faire une déclaration douanière – CustomGPT va t'assister! "
-    "Pour utiliser ce logiciel, renseigne la clé API.")
+    "Téléchargez une facture afin de faire une déclaration douanière – CustomGPT va vous assister! "
+    "Pour utiliser ce logiciel, renseignez la clé API.")
 
 # Ask user for their OpenAI API key via `st.text_input`.
 # Alternatively, you can store the API key in `./.streamlit/secrets.toml` and access it
@@ -42,7 +42,7 @@ if not openai_api_key:
     st.info("Please add your OpenAI API key to continue.", icon="🗝️")
 else:
     # Proposer à l'utilisateur de choisir entre "Import" et "Export"
-    option = st.radio("Sélectionnez une option :", ('Import', 'Export'))
+    option = st.radio("Sélectionnez une option :", Type_douane)
     
     # Ajouter un menu déroulant à l'application
     selection = st.selectbox("Sélectionnez un client :", Client)
