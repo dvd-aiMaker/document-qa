@@ -20,7 +20,7 @@ import base64
 
 import fitz  # PyMuPDF
 
-from utils import pdf2img, encode_image, pdf_to_jpg, chat_df, on_upload_change
+from utils import pdf2img, encode_image, pdf_to_jpg, chat_df, on_upload_change, extract_number
 from prompt import GPT_prompt
 from build_table import process_df, compute_df
 
@@ -109,7 +109,7 @@ else:
         mark+=1
     
         image_paths = []
-        for img in sorted(glob.glob(folder+"/*jpg")):
+        for img in sorted(glob.glob(folder+"/*jpg"), key=extract_number):
             image_paths.append(img)
             print("image path :", img) 
     
