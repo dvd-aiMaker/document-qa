@@ -141,18 +141,6 @@ def chat_df(image_paths, api_key, prompt1):
     data = json.loads(json_str_cleaned)
     df = pd.DataFrame(data)
 
-    if "Code_Douane" not in df.columns and "Code Douane" in df.columns:
-        df.rename(columns={"Code Douane": "Code_Douane"}, inplace=True)
-    if "Code_Douane" not in df.columns and "CodeDouane" in df.columns:
-        df.rename(columns={"CodeDouane": "Code_Douane"}, inplace=True)
-
-    if "Valeur_Douane" not in df.columns and "Valeur Douane" in df.columns:
-        df.rename(columns={"Valeur Douane": "Valeur_Douane"}, inplace=True)
-
-    df['Poids_total'] = df['Poids'] * df['Quantités']
-    # df["Valeur_totale"] = df["Valeur"] * df["Quantités"]
-    # Création de la nouvelle colonne Valeur_totale
-    df['Valeur_totale'] = df.apply(lambda row: row['Valeur'] * row['Quantités'] if row['Valeur'] != 0 else row['Valeur_Douane'] * row['Quantités'], axis=1)
     return df
 
 
