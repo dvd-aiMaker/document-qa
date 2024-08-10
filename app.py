@@ -30,36 +30,36 @@ Type_client = ["Régulier", "Ponctuel"]
 Type_douane = ["Import", "Export"]
 Client = ["","Grosfillex"]
 
-# Injecter du CSS pour changer la couleur de fond
-st.markdown(
-    """
-    <style>
-    /* Changer la couleur de tout le texte en vert */
-    .stApp {
-        color: green;
-        background-color: #f5f5dc; /* Fond beige */
-    }
-    /* Changer la couleur des titres */
-    .stApp h1, .stApp h2, .stApp h3 {
-        color: darkgreen; /* Couleur plus foncée pour les titres */
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+# # Injecter du CSS pour changer la couleur de fond
+# st.markdown(
+#     """
+#     <style>
+#     /* Changer la couleur de tout le texte en vert */
+#     .stApp {
+#         color: green;
+#         background-color: #f5f5dc; /* Fond beige */
+#     }
+#     /* Changer la couleur des titres */
+#     .stApp h1, .stApp h2, .stApp h3 {
+#         color: darkgreen; /* Couleur plus foncée pour les titres */
+#     }
+#     </style>
+#     """,
+#     unsafe_allow_html=True
+# )
 
-# Injecter du CSS pour changer la couleur du texte en vert
-st.markdown(
-    """
-    <style>
-    /* Changer la couleur de tout le texte en vert */
-    .stApp {
-        color: green;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+# # Injecter du CSS pour changer la couleur du texte en vert
+# st.markdown(
+#     """
+#     <style>
+#     /* Changer la couleur de tout le texte en vert */
+#     .stApp {
+#         color: green;
+#     }
+#     </style>
+#     """,
+#     unsafe_allow_html=True
+# )
 
 st.image("image/vuaillat.jpg", use_column_width=True)
 
