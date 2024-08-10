@@ -85,6 +85,11 @@ else:
         if option_Type_douane=="Export":
             # Ajouter un menu déroulant à l'application
             selection = st.selectbox("Sélectionnez un client :", Client)
+        elif option_Type_douane=="Import":
+            # Ajouter un menu déroulant à l'application
+            selection = st.selectbox("Sélectionnez un client :", Client)
+        else:
+            selection = "Ponctuel"
            
     else:
         selection = "Ponctuel"
