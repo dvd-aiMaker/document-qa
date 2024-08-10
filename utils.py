@@ -48,11 +48,11 @@ def pdf2img(pdf_path,folder_path):
 def pdf_to_jpg(pdf, output_folder):
     # Creer le dossier automatique de sauvegarde
 
-    os.chmod("./content", stat.S_IRUSR | stat.S_IWUSR | stat.S_IXUSR)
-    os.chmod("./content/data", stat.S_IRUSR | stat.S_IWUSR | stat.S_IXUSR)
+    os.chmod("document-qa/content", stat.S_IRUSR | stat.S_IWUSR | stat.S_IXUSR)
+    os.chmod("document-qa/content/data", stat.S_IRUSR | stat.S_IWUSR | stat.S_IXUSR)
     os.chmod(output_folder, stat.S_IRUSR | stat.S_IWUSR | stat.S_IXUSR)
     
-    output_folder = "./content/data"
+    output_folder = "document-qa/content/data"
     os.makedirs(output_folder, exist_ok=True)
 
     # Ouvrir le document PDF
@@ -270,8 +270,8 @@ def convert_pdf_to_images(pdf_bytes):
 # Fonction pour gérer le téléchargement et la conversion
 def on_upload_change(change, folder_path):
 
-    os.chmod("./content", stat.S_IRUSR | stat.S_IWUSR | stat.S_IXUSR)
-    os.chmod("./content/data", stat.S_IRUSR | stat.S_IWUSR | stat.S_IXUSR)
+    os.chmod("document-qa/content", stat.S_IRUSR | stat.S_IWUSR | stat.S_IXUSR)
+    os.chmod("document-qa/content/data", stat.S_IRUSR | stat.S_IWUSR | stat.S_IXUSR)
     os.chmod(folder_path, stat.S_IRUSR | stat.S_IWUSR | stat.S_IXUSR)
 
     if os.path.isdir(folder_path):
