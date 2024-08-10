@@ -36,7 +36,7 @@ users = config["users"]
 # Vérification de l'état de connexion
 if not st.session_state.get("logged_in"):
     st.warning("Veuillez vous connecter pour accéder à l'application.")
-    check_login(users)
+    check_login()
 else:
     st.success(f"Bienvenue {st.session_state.username} !")
     # Afficher le contenu de l'application ici
@@ -46,6 +46,7 @@ else:
     if st.button("Se déconnecter"):
         st.session_state.logged_in = False
         st.experimental_rerun()
+
 # -----
 
 
