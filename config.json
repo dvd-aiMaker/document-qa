@@ -2,5 +2,6 @@
     "users": {
         "David": "masolution",
         "Manon": "lasolution"
-    }
+    },
+    "model": "gpt-4o"
 }
