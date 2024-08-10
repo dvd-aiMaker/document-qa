@@ -24,7 +24,39 @@ from utils import pdf2img, encode_image, pdf_to_jpg, chat_df, on_upload_change, 
 from prompt import GPT_prompt
 from build_table import process_df, compute_df
 
+# ----- CONNEXION 
+# Liste des utilisateurs autorisés
+users = {"admin": "admin_password", "user1": "user1_password"}
 
+# Fonction pour vérifier les identifiants
+def check_login():
+    if "logged_in" not in st.session_state:
+        st.session_state.logged_in = False
+
+    username = st.text_input("Nom d'utilisateur")
+    password = st.text_input("Mot de passe", type="password")
+
+    if st.button("Se connecter"):
+        if username in users and users[username] == password:
+            st.session_state.logged_in = True
+            st.session_state.username = username
+        else:
+            st.error("Nom d'utilisateur ou mot de passe incorrect.")
+
+# Vérification de l'état de connexion
+if not st.session_state.get("logged_in"):
+    st.warning("Veuillez vous connecter pour accéder à l'application.")
+    check_login()
+else:
+    st.success(f"Bienvenue {st.session_state.username} !")
+    # Afficher le contenu de l'application ici
+    st.write("Vous êtes connecté et pouvez maintenant accéder à l'application.")
+    
+    # Ajouter un bouton de déconnexion
+    if st.button("Se déconnecter"):
+        st.session_state.logged_in = False
+        st.experimental_rerun()
+# -----
 
 Type_client = ["Ponctuel", "Régulier"]
 Type_douane = ["Import", "Export"]
