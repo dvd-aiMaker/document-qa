@@ -136,9 +136,10 @@ def chat_df(image_paths, api_key, prompt1):
     response1 = chat_multi_vision(image_paths, api_key, prompt1)
 
     table1 = response1.json()["choices"][0]['message']['content']
-    
+    print("TABLE1", table1)
     table1json = table1.split("```json")[1].split("```")[0]
     table1json = table1.split("```json")[1].split("```")[0]
+    print("TABLE1 Json", table1json)
 
     json_str_cleaned = table1json.strip().replace('\n', '').replace('Tableau_A=', '').replace("Tableau_A =", '')
     
