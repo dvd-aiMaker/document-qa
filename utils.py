@@ -263,7 +263,9 @@ def convert_pdf_to_images(pdf_bytes):
 
 # Fonction pour gérer le téléchargement et la conversion
 def on_upload_change(change, folder_path):
-    
+
+    os.chmod("./content", stat.S_IRUSR | stat.S_IWUSR | stat.S_IXUSR)
+    os.chmod("./content/data", stat.S_IRUSR | stat.S_IWUSR | stat.S_IXUSR)
     os.chmod(folder_path, stat.S_IRUSR | stat.S_IWUSR | stat.S_IXUSR)
 
     if os.path.isdir(folder_path):
