@@ -61,6 +61,7 @@ else:
     uploaded_file = st.file_uploader("Téléchargez la facture comme fichier PDF", type="pdf")
 
     if uploaded_file != None:
+        print("BUUGGGG", uploaded_file)
         on_upload_change(uploaded_file)
     
         image_paths = []
