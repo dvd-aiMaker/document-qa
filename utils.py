@@ -227,7 +227,7 @@ def EU_country(code):
     "SE",  # Suède
     "CH",  # Suisse
     ]
-    if "Code" in eu_country_codes:
+    if code in eu_country_codes:
         return True
     else:
         return False
