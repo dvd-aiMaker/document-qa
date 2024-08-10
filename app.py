@@ -62,7 +62,6 @@ else:
     uploaded_file = st.file_uploader("Téléchargez la facture comme fichier PDF", type="pdf")
 
     if uploaded_file != None:
-        print("BUUGGGG", uploaded_file)
 
         folder = "./content/data"
         on_upload_change(uploaded_file.read(),folder)
@@ -70,6 +69,7 @@ else:
         image_paths = []
         for img in sorted(glob.glob(folder+"/*jpg")):
             image_paths.append(img)
+            print("image path :",img ) 
     
         print("Extraction is starting from invoice")
         df = chat_df(image_paths)
