@@ -64,7 +64,7 @@ else:
     if uploaded_file != None:
 
         folder = "./content/data"
-        on_upload_change(uploaded_file.read(),folder)
+        on_upload_change(uploaded_file,folder)
     
         image_paths = []
         for img in sorted(glob.glob(folder+"/*jpg")):
