@@ -20,6 +20,11 @@ MODEL = "gpt-4o" #config['gpt_model'] # "gpt-4o"
 #api_key = config['openai_api_key']
 
 
+def extract_number(filename):
+    # Chercher tous les chiffres dans le nom de fichier et les convertir en entier
+    numbers = re.findall(r'\d+', filename)
+    return int(numbers[-1]) if numbers else 0
+
 def encode_image(image_path):
     with open(image_path, "rb") as image_file:
         return base64.b64encode(image_file.read()).decode('utf-8')
