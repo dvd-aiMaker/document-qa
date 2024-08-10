@@ -83,10 +83,11 @@ else:
     if option_Type_client =="Régulier":
         # Ajouter un menu déroulant à l'application
         selection = st.selectbox("Sélectionnez un client :", Client)
-
-        # Proposer à l'utilisateur de choisir entre "Import" et "Export"
-        option_Type_douane = st.radio("Sélectionnez une option :", Type_douane)
-        print("BUG" ,option_Type_douane)
+        
+        if selection is not None:
+            # Proposer à l'utilisateur de choisir entre "Import" et "Export"
+            option_Type_douane = st.radio("Sélectionnez une option :", Type_douane)
+        
         
     else:
         selection = "Ponctuel"
