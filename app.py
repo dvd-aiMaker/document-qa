@@ -12,6 +12,7 @@ from openai import OpenAI
 import pandas as pd
 import glob
 import time
+from datetime import datetime
 
 from pdf2image import convert_from_path
 import shutil
@@ -93,6 +94,50 @@ Client = ["","Grosfillex"]
 
 if st.session_state.get("logged_in"):
     st.image("image/vuaillat.jpg", use_column_width=True)
+
+    # Titre de la page
+    st.title("Votre Feedback")
+    
+    # Formulaire de feedback
+    st.write("Nous apprécions vos retours. Merci de prendre un moment pour partager vos commentaires avec nous.")
+    
+    # Sélection du type de feedback (positif ou négatif)
+    st.write("Comment évalueriez-vous votre expérience ?")
+    
+    # Utilisation des emojis pour les icônes de feedback
+    feedback_type = st.selectbox(
+        "Sélectionnez le type de feedback",
+        ["👍 Positif", "👎 Négatif"]
+    )
+    
+    # Créer des champs de saisie pour le feedback
+    name = st.text_input("Nom")
+    email = st.text_input("Email")
+    feedback = st.text_area("Votre feedback")
+    
+    # Bouton pour soumettre le feedback
+    if st.button("Soumettre"):
+        if name and feedback:
+            # Enregistrer le feedback dans un fichier CSV
+            feedback_data = {
+                "Date": [datetime.now().strftime("%Y-%m-%d %H:%M:%S")],
+                "Nom": [name],
+                "Email": [email],
+                "Type": [feedback_type],
+                "Feedback": [feedback]
+            }
+            feedback_df = pd.DataFrame(feedback_data)
+    
+            # Append mode pour ajouter les feedbacks sans effacer les précédents
+            feedback_df.to_csv("feedback.csv", mode='a', header=False, index=False)
+    
+            # Message de succès
+            st.success("Merci pour votre feedback !")
+        else:
+            st.error("Veuillez remplir au moins votre nom et votre feedback avant de soumettre.")
+
+
+
     
     # Show title and description.
     st.title("📄 CustomSmart")
