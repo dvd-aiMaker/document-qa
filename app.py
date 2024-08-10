@@ -30,6 +30,7 @@ Type_client = ["Régulier", "Ponctuel"]
 Type_douane = ["Import", "Export"]
 Client = ["","Grosfillex"]
 
+st.image("image/vuaillat.jpg", use_column_width=True)
 
 # Show title and description.
 st.title("📄 CustomSmart")
