@@ -8,7 +8,7 @@ def load_config():
     return config
 
 # Fonction pour vérifier les identifiants
-def check_login():
+def check_login(users):
     if "logged_in" not in st.session_state:
         st.session_state.logged_in = False
 
