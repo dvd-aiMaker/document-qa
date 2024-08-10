@@ -26,7 +26,7 @@ from build_table import process_df, compute_df
 
 
 
-Type_client = ["Régulier", "Ponctuel"]
+Type_client = ["Ponctuel", "Régulier"]
 Type_douane = ["Import", "Export"]
 Client = ["","Grosfillex"]
 
