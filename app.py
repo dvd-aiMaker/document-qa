@@ -22,9 +22,8 @@ import fitz  # PyMuPDF
 
 from utils import pdf2img, encode_image, pdf_to_jpg, chat_df, compute_df, on_upload_change
 
-
-Type_douane = ["Import", "Export"]
 Type_client = ["Régulier", "Ponctuel"]
+Type_douane = ["Import", "Export"]
 Client = ["Grosfillex", ""]
 
 
@@ -43,15 +42,16 @@ if not openai_api_key:
     st.info("Please add your OpenAI API key to continue.", icon="🗝️")
 else:
     # Proposer à l'utilisateur de choisir entre "Import" et "Export"
-    option_Type_douane = st.radio("Sélectionnez une option :", Type_douane)
-    print("BUG" ,option_Type_douane)
-    
-    # Proposer à l'utilisateur de choisir entre "Import" et "Export"
     option_Type_client = st.radio("Sélectionnez une option :", Type_client)
 
     if option_Type_client =="Régulier":
         # Ajouter un menu déroulant à l'application
         selection = st.selectbox("Sélectionnez un client :", Client)
+
+        # Proposer à l'utilisateur de choisir entre "Import" et "Export"
+        option_Type_douane = st.radio("Sélectionnez une option :", Type_douane)
+        print("BUG" ,option_Type_douane)
+        
     else:
         selection = "Ponctuel"
     
