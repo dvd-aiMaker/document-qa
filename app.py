@@ -20,9 +20,9 @@ import base64
 
 import fitz  # PyMuPDF
 
-from utils import pdf2img, encode_image, pdf_to_jpg, chat_df, compute_df, on_upload_change
-
+from utils import pdf2img, encode_image, pdf_to_jpg, chat_df, on_upload_change
 from prompt import GPT_prompt
+from build_table import process_df, compute_df
 
 
 
@@ -80,6 +80,7 @@ else:
     
         print("Extraction is starting from invoice")
         df = chat_df(image_paths, openai_api_key, GPT_prompt(selection))
+        df = process_df(df, selection)
         df_show = compute_df(df)
     
         df_show["Valeur_totale"] = df_show["Valeur"] + df_show["Valeur_Douane"]
