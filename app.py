@@ -65,7 +65,7 @@ else:
 
     if uploaded_file != None:
 
-        folder = "./content/data"
+        folder = "document-qa/content/data"
         on_upload_change(uploaded_file,folder)
     
         image_paths = []
