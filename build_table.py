@@ -1,4 +1,6 @@
 from prompt import GPT_prompt
+from utils import chat_df
+
 import pandas as pd
 
 eu_country_codes = [
@@ -60,7 +62,6 @@ def process_df(df, selection):
   else:
     print("Le client n'est pas dans la base")
   return df
-
 
 def compute_df(df, selection):
   if selection == "Ponctuel":
@@ -148,3 +149,9 @@ def compute_df_Grosfillex(df):
   # Concaténation des deux DataFrames
   df_combined = pd.concat([df_eu_aggregated, df_non_eu_aggregated], ignore_index=True)
   return df_combined
+
+def extract_text_from_invoice(image_paths, api_key, selection):
+  df = chat_df(image_paths, api_key, GPT_prompt(selection))
+  df = process_df(df, selection)
+  df_show = compute_df(df, selection)
+  return df, df_show

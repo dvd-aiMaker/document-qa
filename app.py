@@ -21,9 +21,9 @@ import base64
 
 import fitz  # PyMuPDF
 
-from utils import pdf2img, encode_image, pdf_to_jpg, chat_df, on_upload_change, extract_number
+from utils import pdf2img, encode_image, pdf_to_jpg, chat_df, on_upload_change, extract_number, create_overlapping_sublists
 from prompt import GPT_prompt
-from build_table import process_df, compute_df
+from build_table import process_df, compute_df, extract_text_from_invoice
 from login import load_config, check_login
 
 
@@ -144,28 +144,47 @@ if st.session_state.get("logged_in"):
             for img in sorted(glob.glob(folder+"/*jpg"), key=extract_number):
                 image_paths.append(img)
                 print("image path :", img) 
-        
+            
+            number_image = len(image_paths)
+            
+            if number_image > 15:
+                sub_image_paths = create_overlapping_sublists(image_paths, 2, 2)
+            
+            DF, DF_SHOW = [], []
             print("Extraction is starting from invoice")
-            df = chat_df(image_paths, openai_api_key, GPT_prompt(selection))
-            df = process_df(df, selection)
-            df_show = compute_df(df, selection)
+            for i in range(len(sub_image_paths)):
+                sublist = sub_image_paths[i]
+                df, df_show = extract_text_from_invoice(sublist,openai_api_key,selection)
+                DF.append(df), DF_SHOW.append(df_show)
+
+            
+            #df, df_show = extract_text_from_invoice(image_paths,openai_api_key,selection)
+            # df = chat_df(image_paths, openai_api_key, GPT_prompt(selection))
+            # df = process_df(df, selection)
+            # df_show = compute_df(df, selection)
         
             # df_show["Valeur_totale"] = df_show["Valeur"] + df_show["Valeur_Douane"]
         
             # df_show['Valeur'] = pd.to_numeric(df_show['Valeur'], errors='coerce')
             # df_show["Poids_total"] = pd.to_numeric(df_show['Poids_total'], errors='coerce')
         
-            print("\n\n TABLEAU LISTE MARCHANDISE:")
-            st.dataframe(df)
+
+
+            for i in range(len(sub_image_paths)):
+                st.dataframe(DF[i])
+                st.dataframe(DF_SHOW[i])
+
+            # print("\n\n TABLEAU LISTE MARCHANDISE:")
+            # st.dataframe(df)
         
-            print("\n\n RESULTAT TABLEAU AGREGE:")
-            st.dataframe(df_show)
+            # print("\n\n RESULTAT TABLEAU AGREGE:")
+            # st.dataframe(df_show)
     
-            st.markdown("**Resultat de l'Analyse**")
-            if selection == "Ponctuel":
-                st.text("Valeur Totale: "+ str(df_show['Montant'].sum()))
-                st.text("Poids Total: "+ str(df_show["Poids_total"].sum()))
-            elif selection == "Grosfillex":
-                st.text("Valeur Totale: "+ str(df_show['Valeur'].sum()))
-                st.text("Poids Total: "+ str(df_show["Poids"].sum()))
+            # st.markdown("**Resultat de l'Analyse**")
+            # if selection == "Ponctuel":
+            #     st.text("Valeur Totale: "+ str(df_show['Montant'].sum()))
+            #     st.text("Poids Total: "+ str(df_show["Poids_total"].sum()))
+            # elif selection == "Grosfillex":
+            #     st.text("Valeur Totale: "+ str(df_show['Valeur'].sum()))
+            #     st.text("Poids Total: "+ str(df_show["Poids"].sum()))
 

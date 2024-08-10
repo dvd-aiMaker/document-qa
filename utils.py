@@ -304,3 +304,24 @@ def on_upload_change(change, folder_path):
     #    image.save(image_path, 'JPEG')
     #    images_path.append(image_path)
     #print("TEST", number_images)
+
+
+
+def create_overlapping_sublists(image_paths, sublist_size, overlap_size):
+    """
+    Crée des sous-listes qui se chevauchent à partir d'une liste de chemins d'image.
+    
+    Parameters:
+    image_paths (list): La liste principale des chemins d'image.
+    sublist_size (int): Taille de chaque sous-liste.
+    overlap_size (int): Nombre d'éléments qui doivent se chevaucher entre les sous-listes.
+    
+    Returns:
+    list: Une liste de sous-listes.
+    """
+    sublists = []
+    for i in range(0, len(image_paths), sublist_size - overlap_size):
+        sublists.append(image_paths[i:i + sublist_size])
+        if i + sublist_size >= len(image_paths):  # Arrêter si on atteint la fin
+            break
+    return sublists
