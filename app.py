@@ -81,7 +81,7 @@ else:
         print("Extraction is starting from invoice")
         df = chat_df(image_paths, openai_api_key, GPT_prompt(selection))
         df = process_df(df, selection)
-        df_show = compute_df(df)
+        df_show = compute_df(df, selection)
     
         df_show["Valeur_totale"] = df_show["Valeur"] + df_show["Valeur_Douane"]
     
