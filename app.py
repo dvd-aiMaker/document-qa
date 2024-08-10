@@ -66,7 +66,7 @@ else:
     if uploaded_file != None:
         print("Le fichier est uploadé!!!!!!")
         
-        folder = "content/data"
+        folder = "./content/data"
         on_upload_change(uploaded_file, folder)
     
         image_paths = []
