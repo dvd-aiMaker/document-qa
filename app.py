@@ -64,11 +64,11 @@ else:
     if uploaded_file != None:
         print("BUUGGGG", uploaded_file)
 
-        folder = "./content/data/
+        folder = "./content/data"
         on_upload_change(uploaded_file.read(),folder)
     
         image_paths = []
-        for img in sorted(glob.glob(folder+"*jpg")):
+        for img in sorted(glob.glob(folder+"/*jpg")):
             image_paths.append(img)
     
         print("Extraction is starting from invoice")
