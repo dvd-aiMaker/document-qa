@@ -34,9 +34,14 @@ Client = ["","Grosfillex"]
 st.markdown(
     """
     <style>
-    /* Changer la couleur de fond de la page */
+    /* Changer la couleur de tout le texte en vert */
     .stApp {
-        background-color: #f5f5dc;
+        color: green;
+        background-color: #f5f5dc; /* Fond beige */
+    }
+    /* Changer la couleur des titres */
+    .stApp h1, .stApp h2, .stApp h3 {
+        color: darkgreen; /* Couleur plus foncée pour les titres */
     }
     </style>
     """,
