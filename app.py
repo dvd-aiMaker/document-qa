@@ -62,7 +62,7 @@ else:
 
     if uploaded_file != None:
         print("BUUGGGG", uploaded_file)
-        on_upload_change(uploaded_file)
+        on_upload_change(uploaded_file.read())
     
         image_paths = []
         for img in sorted(glob.glob(folder+"*jpg")):
