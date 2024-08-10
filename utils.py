@@ -45,7 +45,7 @@ def pdf2img(pdf_path,folder_path):
     return images_path
 
 
-def pdf_to_jpg(pdf_path, output_folder):
+def pdf_to_jpg(pdf, output_folder):
     # Creer le dossier automatique de sauvegarde
 
     os.chmod("./content", stat.S_IRUSR | stat.S_IWUSR | stat.S_IXUSR)
@@ -56,7 +56,7 @@ def pdf_to_jpg(pdf_path, output_folder):
     os.makedirs(output_folder, exist_ok=True)
 
     # Ouvrir le document PDF
-    pdf_document = fitz.open(pdf_path)
+    pdf_document = fitz.open(stream=pdf.read(), filetype="pdf")
     
     # Parcourir chaque page du document
     for page_number in range(len(pdf_document)):
