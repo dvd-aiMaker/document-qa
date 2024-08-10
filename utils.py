@@ -14,6 +14,8 @@ import pandas as pd
 from prompt import GPT_prompt
 from login import load_config
 
+config = load_config()
+
 MODEL = config['gpt_model'] # "gpt-4o"
 #PDF = config['invoice_path']
 #FOLDER = config['image_folder']
