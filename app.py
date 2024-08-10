@@ -94,7 +94,7 @@ else:
         print("\n\n RESULTAT TABLEAU AGREGE:")
         #print(df_show)
         st.dataframe(df_show)
-        print("Valeur Totale: ", df_show['Valeur'].sum())
+        print("Montant Total: ", df_show['Valeur'].sum())
         print("Poids Total: ", df_show["Poids_total"].sum())
 
         st.markdown("**Resultat de l'Analyse**")
