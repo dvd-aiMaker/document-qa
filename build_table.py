@@ -34,8 +34,6 @@ def compute_df(df, selection):
 
 
 def compute_df_Ponctuel(df):
-    df = df_total
-
     # Création de la DataFrame pour les origines EU
     df_eu = df[df['Origine'].isin(eu_country_codes)]
 
