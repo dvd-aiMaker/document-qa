@@ -24,7 +24,7 @@ MODEL = "gpt-4o" #config['gpt_model'] # "gpt-4o"
 def install_poppler_utils():
     try:
         # Exécuter la commande apt-get install pour installer poppler-utils
-        subprocess.run(["sudo", "apt-get", "install", "-y", "poppler-utils"], check=True)
+        subprocess.run(["apt-get", "install", "-y", "poppler-utils"], check=True)
         print("poppler-utils a été installé avec succès.")
     except subprocess.CalledProcessError as e:
         print(f"Une erreur est survenue lors de l'installation de poppler-utils : {e}")
