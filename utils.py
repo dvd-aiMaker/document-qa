@@ -12,12 +12,24 @@ import pandas as pd
 
 from prompt import GPT_prompt
 
+import subprocess
+
 
 MODEL = "gpt-4o" #config['gpt_model'] # "gpt-4o"
 #PDF = config['invoice_path']
 #FOLDER = config['image_folder']
 #api_key = config['openai_api_key']
 
+
+def install_poppler_utils():
+    try:
+        # Exécuter la commande apt-get install pour installer poppler-utils
+        subprocess.run(["sudo", "apt-get", "install", "-y", "poppler-utils"], check=True)
+        print("poppler-utils a été installé avec succès.")
+    except subprocess.CalledProcessError as e:
+        print(f"Une erreur est survenue lors de l'installation de poppler-utils : {e}")
+    except Exception as e:
+        print(f"Une erreur inattendue est survenue : {e}")
 
 def encode_image(image_path):
     with open(image_path, "rb") as image_file:
