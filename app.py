@@ -99,16 +99,10 @@ else:
         print("Poids Total: ", df_show["Poids_total"].sum())
 
         st.markdown("**Resultat de l'Analyse**")
-        st.text("Valeur Totale: "+ str(df_show['Montant'].sum()))
-        st.text("Poids Total: "+ str(df_show["Poids_total"].sum()))
-    
-        print("\n\n ANALYSE:")
-        # Filtrage des lignes où Valeur et Valeur_Douane sont nulles
-        filtered_df = df[(df['Valeur'] == 0.0) & (df['Valeur_Douane'] == 0.0)]
-        # Extraction des IDs correspondants
-        ids = filtered_df['ID'].tolist()
-        # Affichage des IDs
-        print("Anomalies aux IDs :", ids, "-> Les Valeur et Valeur_Douane sont nulles")
-
-
+        if selection == "Ponctuel":
+            st.text("Valeur Totale: "+ str(df_show['Montant'].sum()))
+            st.text("Poids Total: "+ str(df_show["Poids_total"].sum()))
+        elif selection == "Grosfillex":
+            st.text("Valeur Totale: "+ str(df_show['Valeur'].sum()))
+            st.text("Poids Total: "+ str(df_show["Poids"].sum()))
 

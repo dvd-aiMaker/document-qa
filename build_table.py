@@ -32,6 +32,8 @@ eu_country_codes = [
     "CH",  # Suisse
     ]
 
+
+
 def process_df(df, selection):
   if "Code_Douane" not in df.columns and "Code Douane" in df.columns:
     df.rename(columns={"Code Douane": "Code_Douane"}, inplace=True)
@@ -46,11 +48,14 @@ def process_df(df, selection):
     # Création de la nouvelle colonne Valeur_totale
     df['Valeur_totale'] = df.apply(lambda row: row['Valeur'] * row['Quantités'] if row['Valeur'] != 0 else row['Valeur_Douane'] * row['Quantités'], axis=1)
     
-    #df['Valeur'] = pd.to_numeric(df['Valeur'], errors='coerce')
-    #df["Poids_total"] = pd.to_numeric(df['Poids_total'], errors='coerce')
+    df['Valeur'] = pd.to_numeric(df['Valeur'], errors='coerce')
+    df["Poids_total"] = pd.to_numeric(df['Poids_total'], errors='coerce')
     
   elif selection == "Grosfillex":
-    print(selection + "is Not ready")
+
+    df['Valeur'] = pd.to_numeric(df['Valeur'], errors='coerce')
+    df["Poids"] = pd.to_numeric(df['Poids'], errors='coerce')
+
     
   else:
     print("Le client n'est pas dans la base")
@@ -60,6 +65,8 @@ def process_df(df, selection):
 def compute_df(df, selection):
   if selection == "Ponctuel":
     return compute_df_Ponctuel(df)
+  elif selection == "Grosfillex":
+    return compute_df_Grosfillex(df)
   else:
     print(selection + "is Not ready")
 
@@ -109,3 +116,33 @@ def compute_df_Ponctuel(df):
     # Concaténation des deux DataFrames
     df_combined = pd.concat([df_eu_aggregated, df_non_eu_aggregated], ignore_index=True)
     return df_combined
+
+
+def compute_df_Grosfillex(df):
+  # Création de la DataFrame pour les origines EU
+  df_eu = df[df['Origine'].isin(eu_country_codes)]
+  
+
+  # Agrégation des données par code douanier pour les origines EU
+  df_eu_aggregated = df_eu.groupby('Code_Douane').agg({
+      'Valeur': 'sum',
+      'Poids': 'sum'
+  }).reset_index()
+  df_eu_aggregated["ORIGINE"] = "EU"
+
+
+  # Création de la DataFrame pour les origines hors EU
+  df_non_eu = df[~df['Origine'].isin(eu_country_codes)]
+  
+
+  # Agrégation des données par code douanier pour les origines hors EU
+  df_non_eu_aggregated = df_non_eu.groupby('Code_Douane').agg({
+      'Valeur': 'sum',
+      'Poids': 'sum'
+  }).reset_index()
+  df_non_eu_aggregated["ORIGINE"] = "HORS EU"
+
+
+  # Concaténation des deux DataFrames
+  df_combined = pd.concat([df_eu_aggregated, df_non_eu_aggregated], ignore_index=True)
+  return df_combined
