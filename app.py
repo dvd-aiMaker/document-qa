@@ -23,25 +23,15 @@ import fitz  # PyMuPDF
 from utils import pdf2img, encode_image, pdf_to_jpg, chat_df, on_upload_change, extract_number
 from prompt import GPT_prompt
 from build_table import process_df, compute_df
+from login import load_config, check_login
+
+st.image("image/vuaillat.jpg", use_column_width=True)
 
 # ----- CONNEXION 
-# Liste des utilisateurs autorisés
-users = {"admin": "admin_password", "user1": "user1_password"}
+# Charger les utilisateurs et mots de passe à partir du fichier de configuration
+config = load_config()
+users = config["users"]
 
-# Fonction pour vérifier les identifiants
-def check_login():
-    if "logged_in" not in st.session_state:
-        st.session_state.logged_in = False
-
-    username = st.text_input("Nom d'utilisateur")
-    password = st.text_input("Mot de passe", type="password")
-
-    if st.button("Se connecter"):
-        if username in users and users[username] == password:
-            st.session_state.logged_in = True
-            st.session_state.username = username
-        else:
-            st.error("Nom d'utilisateur ou mot de passe incorrect.")
 
 # Vérification de l'état de connexion
 if not st.session_state.get("logged_in"):
@@ -57,6 +47,7 @@ else:
         st.session_state.logged_in = False
         st.experimental_rerun()
 # -----
+
 
 Type_client = ["Ponctuel", "Régulier"]
 Type_douane = ["Import", "Export"]
@@ -93,79 +84,78 @@ Client = ["","Grosfillex"]
 #     unsafe_allow_html=True
 # )
 
-st.image("image/vuaillat.jpg", use_column_width=True)
-
-# Show title and description.
-st.title("📄 CustomSmart")
-st.write(
-    "Téléchargez une facture afin de faire une déclaration douanière – CustomGPT va vous assister! "
-    "Pour utiliser ce logiciel, renseignez la clé API.")
-
-# Ask user for their OpenAI API key via `st.text_input`.
-# Alternatively, you can store the API key in `./.streamlit/secrets.toml` and access it
-# via `st.secrets`, see https://docs.streamlit.io/develop/concepts/connections/secrets-management
-openai_api_key = st.text_input("OpenAI API Key", type="password")
-
-if not openai_api_key:
-    st.info("Please add your OpenAI API key to continue.", icon="🗝️")
-else:
-    option_Type_client = st.radio("Sélectionnez une option :", Type_client)
-
-    if option_Type_client =="Régulier":
-        option_Type_douane = st.radio("Sélectionnez une option :", Type_douane)
-
-        if option_Type_douane=="Export":
-            # Ajouter un menu déroulant à l'application
-            selection = st.selectbox("Sélectionnez un client :", Client)
-        elif option_Type_douane=="Import":
-            # Ajouter un menu déroulant à l'application
-            selection = st.selectbox("Sélectionnez un client :", Client)
+if check_login():
+    # Show title and description.
+    st.title("📄 CustomSmart")
+    st.write(
+        "Téléchargez une facture afin de faire une déclaration douanière – CustomGPT va vous assister! "
+        "Pour utiliser ce logiciel, renseignez la clé API.")
+    
+    # Ask user for their OpenAI API key via `st.text_input`.
+    # Alternatively, you can store the API key in `./.streamlit/secrets.toml` and access it
+    # via `st.secrets`, see https://docs.streamlit.io/develop/concepts/connections/secrets-management
+    openai_api_key = st.text_input("OpenAI API Key", type="password")
+    
+    if not openai_api_key:
+        st.info("Please add your OpenAI API key to continue.", icon="🗝️")
+    else:
+        option_Type_client = st.radio("Sélectionnez une option :", Type_client)
+    
+        if option_Type_client =="Régulier":
+            option_Type_douane = st.radio("Sélectionnez une option :", Type_douane)
+    
+            if option_Type_douane=="Export":
+                # Ajouter un menu déroulant à l'application
+                selection = st.selectbox("Sélectionnez un client :", Client)
+            elif option_Type_douane=="Import":
+                # Ajouter un menu déroulant à l'application
+                selection = st.selectbox("Sélectionnez un client :", Client)
+            else:
+                selection = "Ponctuel"
+               
         else:
             selection = "Ponctuel"
-           
-    else:
-        selection = "Ponctuel"
-    
-    # Afficher l'option sélectionnée
-    st.write(f"Téléchargez la facture du client {selection}")
-    
-    # Charger un fichier PDF si nécessaire
-    uploaded_file = st.file_uploader("Téléchargez la facture comme fichier PDF", type="pdf")
-    mark = 0
-    
-    if uploaded_file != None and mark==0:
-        print("Le fichier est uploadé!!!!!!")
         
-        folder = "content/data"
-        on_upload_change(uploaded_file, folder)
-        mark+=1
+        # Afficher l'option sélectionnée
+        st.write(f"Téléchargez la facture du client {selection}")
+        
+        # Charger un fichier PDF si nécessaire
+        uploaded_file = st.file_uploader("Téléchargez la facture comme fichier PDF", type="pdf")
+        mark = 0
+        
+        if uploaded_file != None and mark==0:
+            print("Le fichier est uploadé!!!!!!")
+            
+            folder = "content/data"
+            on_upload_change(uploaded_file, folder)
+            mark+=1
+        
+            image_paths = []
+            for img in sorted(glob.glob(folder+"/*jpg"), key=extract_number):
+                image_paths.append(img)
+                print("image path :", img) 
+        
+            print("Extraction is starting from invoice")
+            df = chat_df(image_paths, openai_api_key, GPT_prompt(selection))
+            df = process_df(df, selection)
+            df_show = compute_df(df, selection)
+        
+            # df_show["Valeur_totale"] = df_show["Valeur"] + df_show["Valeur_Douane"]
+        
+            # df_show['Valeur'] = pd.to_numeric(df_show['Valeur'], errors='coerce')
+            # df_show["Poids_total"] = pd.to_numeric(df_show['Poids_total'], errors='coerce')
+        
+            print("\n\n TABLEAU LISTE MARCHANDISE:")
+            st.dataframe(df)
+        
+            print("\n\n RESULTAT TABLEAU AGREGE:")
+            st.dataframe(df_show)
     
-        image_paths = []
-        for img in sorted(glob.glob(folder+"/*jpg"), key=extract_number):
-            image_paths.append(img)
-            print("image path :", img) 
-    
-        print("Extraction is starting from invoice")
-        df = chat_df(image_paths, openai_api_key, GPT_prompt(selection))
-        df = process_df(df, selection)
-        df_show = compute_df(df, selection)
-    
-        # df_show["Valeur_totale"] = df_show["Valeur"] + df_show["Valeur_Douane"]
-    
-        # df_show['Valeur'] = pd.to_numeric(df_show['Valeur'], errors='coerce')
-        # df_show["Poids_total"] = pd.to_numeric(df_show['Poids_total'], errors='coerce')
-    
-        print("\n\n TABLEAU LISTE MARCHANDISE:")
-        st.dataframe(df)
-    
-        print("\n\n RESULTAT TABLEAU AGREGE:")
-        st.dataframe(df_show)
-
-        st.markdown("**Resultat de l'Analyse**")
-        if selection == "Ponctuel":
-            st.text("Valeur Totale: "+ str(df_show['Montant'].sum()))
-            st.text("Poids Total: "+ str(df_show["Poids_total"].sum()))
-        elif selection == "Grosfillex":
-            st.text("Valeur Totale: "+ str(df_show['Valeur'].sum()))
-            st.text("Poids Total: "+ str(df_show["Poids"].sum()))
+            st.markdown("**Resultat de l'Analyse**")
+            if selection == "Ponctuel":
+                st.text("Valeur Totale: "+ str(df_show['Montant'].sum()))
+                st.text("Poids Total: "+ str(df_show["Poids_total"].sum()))
+            elif selection == "Grosfillex":
+                st.text("Valeur Totale: "+ str(df_show['Valeur'].sum()))
+                st.text("Poids Total: "+ str(df_show["Poids"].sum()))
 
