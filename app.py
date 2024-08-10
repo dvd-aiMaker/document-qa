@@ -30,6 +30,18 @@ Type_client = ["Régulier", "Ponctuel"]
 Type_douane = ["Import", "Export"]
 Client = ["","Grosfillex"]
 
+# Injecter du CSS pour changer la couleur de fond
+st.markdown(
+    """
+    <style>
+    /* Changer la couleur de fond de la page */
+    .stApp {
+        background-color: #f5f5dc;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 st.image("image/vuaillat.jpg", use_column_width=True)
 
 # Show title and description.
