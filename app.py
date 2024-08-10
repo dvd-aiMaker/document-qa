@@ -24,6 +24,8 @@ from utils import pdf2img, encode_image, pdf_to_jpg, chat_df, compute_df, on_upl
 
 from prompt import GPT_prompt
 
+
+
 Type_client = ["Régulier", "Ponctuel"]
 Type_douane = ["Import", "Export"]
 Client = ["","Grosfillex"]
@@ -62,12 +64,14 @@ else:
     
     # Charger un fichier PDF si nécessaire
     uploaded_file = st.file_uploader("Téléchargez la facture comme fichier PDF", type="pdf")
-
-    if uploaded_file != None:
+    mark = 0
+    
+    if uploaded_file != None and mark==0:
         print("Le fichier est uploadé!!!!!!")
         
-        folder = "./content/data"
+        folder = "content/data"
         on_upload_change(uploaded_file, folder)
+        mark+=1
     
         image_paths = []
         for img in sorted(glob.glob(folder+"/*jpg")):
@@ -84,10 +88,12 @@ else:
         df_show["Poids_total"] = pd.to_numeric(df_show['Poids_total'], errors='coerce')
     
         print("\n\n TABLEAU LISTE MARCHANDISE:")
-        print(df)
+        #print(df)
+        st.dataframe(df)
     
         print("\n\n RESULTAT TABLEAU AGREGE:")
-        print(df_show)
+        #print(df_show)
+        st.dataframe(df_show)
         print("Valeur Totale: ", df_show['Valeur'].sum())
         print("Poids Total: ", df_show["Poids_total"].sum())
     
