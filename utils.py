@@ -12,9 +12,9 @@ from openai import OpenAI
 import pandas as pd
 
 from prompt import GPT_prompt
+from login import load_config
 
-
-MODEL = "gpt-4o" #config['gpt_model'] # "gpt-4o"
+MODEL = config['gpt_model'] # "gpt-4o"
 #PDF = config['invoice_path']
 #FOLDER = config['image_folder']
 #api_key = config['openai_api_key']
