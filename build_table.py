@@ -1,5 +1,35 @@
 from prompt import GPT_prompt
 
+eu_country_codes = [
+    "AT",  # Autriche
+    "BE",  # Belgique
+    "BG",  # Bulgarie
+    "HR",  # Croatie
+    "CY",  # Chypre
+    "CZ",  # Tchéquie
+    "DK",  # Danemark
+    "EE",  # Estonie
+    "FI",  # Finlande
+    "FR",  # France
+    "DE",  # Allemagne
+    "GR",  # Grèce
+    "HU",  # Hongrie
+    "IE",  # Irlande
+    "IT",  # Italie
+    "LV",  # Lettonie
+    "LT",  # Lituanie
+    "LU",  # Luxembourg
+    "MT",  # Malte
+    "NL",  # Pays-Bas
+    "PL",  # Pologne
+    "PT",  # Portugal
+    "RO",  # Roumanie
+    "SK",  # Slovaquie
+    "SI",  # Slovénie
+    "ES",  # Espagne
+    "SE",  # Suède
+    "CH",  # Suisse
+    ]
 
 def process_df(df, selection):
   if "Code_Douane" not in df.columns and "Code Douane" in df.columns:
