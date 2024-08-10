@@ -26,7 +26,7 @@ from prompt import GPT_prompt
 
 Type_client = ["Régulier", "Ponctuel"]
 Type_douane = ["Import", "Export"]
-Client = ["Grosfillex", ""]
+Client = ["","Grosfillex"]
 
 
 # Show title and description.
@@ -64,14 +64,15 @@ else:
     uploaded_file = st.file_uploader("Téléchargez la facture comme fichier PDF", type="pdf")
 
     if uploaded_file != None:
-
+        print("Le fichier est uploadé!!!!!!")
+        
         folder = "content/data"
-        on_upload_change(uploaded_file,folder)
+        on_upload_change(uploaded_file, folder)
     
         image_paths = []
         for img in sorted(glob.glob(folder+"/*jpg")):
             image_paths.append(img)
-            print("image path :",img ) 
+            print("image path :", img) 
     
         print("Extraction is starting from invoice")
         df = chat_df(image_paths, openai_api_key, GPT_prompt())
