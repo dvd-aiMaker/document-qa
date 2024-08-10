@@ -1,6 +1,6 @@
 from pdf2image import convert_from_path
 from pdf2image import convert_from_bytes
-import os,stat
+import os, stat, re
 import shutil
 from pathlib import Path
 import base64
