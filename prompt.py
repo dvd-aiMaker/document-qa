@@ -23,7 +23,7 @@ def GPT_prompt(client):
         prompt1 += " Ajoutes une clé correspondant à l'Origine, la valeur doit être donnéee en ISO 3166-1 alpha-2."
         prompt1 += " Ajoutes une clé correspondant à la Valeur, et la valeur doit être repporté comme un float."
         prompt1 += " Ajoutes une clé correspondant au Montant, celui ci prend en compte la quantité et peut être remisé."
-        prompt1 += " Ajoutes une clé correspondant à la Valeur Douane, met 0 si la clé correspond à la Valeur est non nul, sinon il faut mettre la valeur douane EUR renseigné dans la description."
+        #prompt1 += " Ajoutes une clé correspondant à la Valeur Douane, met 0 si la clé correspond à la Valeur est non nul, sinon il faut mettre la valeur douane EUR renseigné dans la description."
         prompt1 += " Ajoutes une clé correspondant au Poids. Cette valeur doit être repporté comme un float."
         prompt1 += " Ajoutes une clé correspondant aux Quantités, et la valeur doit être repporté comme un float."
 
