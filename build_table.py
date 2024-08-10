@@ -125,6 +125,7 @@ def compute_df_Grosfillex(df):
 
   # Agrégation des données par code douanier pour les origines EU
   df_eu_aggregated = df_eu.groupby('Code_Douane').agg({
+      'ID': lambda x: list(x),
       'Valeur': 'sum',
       'Poids': 'sum'
   }).reset_index()
@@ -137,6 +138,7 @@ def compute_df_Grosfillex(df):
 
   # Agrégation des données par code douanier pour les origines hors EU
   df_non_eu_aggregated = df_non_eu.groupby('Code_Douane').agg({
+      'ID': lambda x: list(x),
       'Valeur': 'sum',
       'Poids': 'sum'
   }).reset_index()
