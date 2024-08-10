@@ -84,8 +84,9 @@ else:
         # Ajouter un menu déroulant à l'application
         selection = st.selectbox("Sélectionnez un client :", Client)
         
-        if selection in Client:
+        if not selection:
             # Proposer à l'utilisateur de choisir entre "Import" et "Export"
+            st.info("Renseignez si vous souhaitez faire de l'import ou export.")
             option_Type_douane = st.radio("Sélectionnez une option :", Type_douane)
         
         
