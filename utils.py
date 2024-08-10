@@ -5,6 +5,7 @@ import shutil
 from pathlib import Path
 import base64
 import json
+import fitz
 
 import requests
 from openai import OpenAI
