@@ -142,9 +142,11 @@ def chat_df(image_paths, api_key, prompt1):
 
     if "Valeur_Douane" not in df.columns and "Valeur Douane" in df.columns:
         df.rename(columns={"Valeur Douane": "Valeur_Douane"}, inplace=True)
-    
-    df['Poids_total'] = df['Poids'] * df['Quantités']
 
+    df['Poids_total'] = df['Poids'] * df['Quantités']
+    # df["Valeur_totale"] = df["Valeur"] * df["Quantités"]
+    # Création de la nouvelle colonne Valeur_totale
+    df['Valeur_totale'] = df.apply(lambda row: row['Valeur'] * row['Quantités'] if row['Valeur'] != 0 else row['Valeur_Douane'] * row['Quantités'], axis=1)
     return df
 
 
