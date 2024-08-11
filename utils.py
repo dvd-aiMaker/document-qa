@@ -138,6 +138,7 @@ def chat_multi_vision(image_paths, api_key, prompt):
 def chat_df(image_paths, api_key, prompt1):
     #prompt1 = GPT_prompt()
     response1 = chat_multi_vision(image_paths, api_key, prompt1)
+    st.text(str(response1))
 
     table1 = response1.json()["choices"][0]['message']['content']
     st.text(str(table1))
