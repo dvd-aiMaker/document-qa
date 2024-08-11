@@ -149,15 +149,29 @@ if st.session_state.get("logged_in"):
             
             if number_image > 15:
                 sub_image_paths = create_overlapping_sublists(image_paths, 2, 2)
+
+                DF, DF_SHOW = [], []
+                print("Extraction is starting from invoice")
+                for i in range(len(sub_image_paths)):
+                    sublist = sub_image_paths[i]
+                    df, df_show = extract_text_from_invoice(sublist,openai_api_key,selection)
+                    DF.append(df), DF_SHOW.append(df_show)
+
+                DF, DF_SHOW = [], []
+                print("Extraction is starting from invoice")
+                for i in range(len(sub_image_paths)):
+                    sublist = sub_image_paths[i]
+                    df, df_show = extract_text_from_invoice(sublist,openai_api_key,selection)
+                    DF.append(df), DF_SHOW.append(df_show)
+
+                for i in range(len(sub_image_paths)):
+                    st.dataframe(DF[i])
+                    st.dataframe(DF_SHOW[i])
             else:
-                sub_image_paths = image_paths
+                df, df_show = extract_text_from_invoice(image_paths ,openai_api_key,selection)
+                st.dataframe(df)
+                st.dataframe(df_show)
             
-            DF, DF_SHOW = [], []
-            print("Extraction is starting from invoice")
-            for i in range(len(sub_image_paths)):
-                sublist = sub_image_paths[i]
-                df, df_show = extract_text_from_invoice(sublist,openai_api_key,selection)
-                DF.append(df), DF_SHOW.append(df_show)
 
             
             #df, df_show = extract_text_from_invoice(image_paths,openai_api_key,selection)
@@ -172,9 +186,7 @@ if st.session_state.get("logged_in"):
         
 
 
-            for i in range(len(sub_image_paths)):
-                st.dataframe(DF[i])
-                st.dataframe(DF_SHOW[i])
+            
 
             # print("\n\n TABLEAU LISTE MARCHANDISE:")
             # st.dataframe(df)
