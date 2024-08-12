@@ -150,7 +150,7 @@ if st.session_state.get("logged_in"):
 
             if number_image > 15:
                 #sub_image_paths = create_overlapping_sublists(image_paths, 2, 2)
-                image_paths_1 = image_paths[:(number_image//2) -1]
+                image_paths_1 = image_paths[:(number_image//2) -2]
                 image_paths_2 = image_paths[(number_image//2) -1:]
 
                 DF, DF_SHOW = [], []
