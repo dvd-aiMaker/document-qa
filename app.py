@@ -96,37 +96,91 @@ if st.session_state.get("logged_in"):
     st.image("image/vuaillat.jpg", use_column_width=True)
 
 
-
-    # Placeholder for chat history
-    if "messages" not in st.session_state:
-        st.session_state.messages = []
+    # HTML et CSS pour la bulle de chat
+    st.markdown(
+        """
+        <style>
+        /* Conteneur de la bulle de chat */
+        .chat-bubble {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: #4CAF50;
+            border-radius: 50%;
+            text-align: center;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            z-index: 1000;
+        }
     
-    # Afficher l'historique des messages
-    for message in st.session_state.messages:
-        st.write(f"**{message['role']}**: {message['content']}")
+        /* Icône de la bulle de chat */
+        .chat-bubble i {
+            color: white;
+            font-size: 24px;
+            line-height: 50px;
+        }
     
-    # Saisie utilisateur
-    user_input = st.text_input("Vous:", key="input")
+        /* Fenêtre de chat */
+        .chat-window {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 300px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
     
-    if st.button("Envoyer"):
-        if user_input:
-            # Ajouter le message de l'utilisateur à l'historique
-            st.session_state.messages.append({"role": "Vous", "content": user_input})
-            
-            # Simuler une réponse du chatbot (vous pouvez remplacer par une API)
-            response = f"Réponse du chatbot à '{user_input}'"
+        /* En-tête de la fenêtre de chat */
+        .chat-window-header {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            text-align: center;
+        }
     
-            # Ajouter la réponse du chatbot à l'historique
-            st.session_state.messages.append({"role": "Chatbot", "content": response})
-            
-            # Effacer le champ de saisie après l'envoi
-            st.session_state.input = ""
-            
-            # Redessiner l'interface pour afficher la réponse
-            st.experimental_rerun()
-
-
-
+        /* Contenu de la fenêtre de chat */
+        .chat-window-content {
+            padding: 10px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+    
+        </style>
+    
+        <div class="chat-bubble" onclick="toggleChatWindow()">
+            <i class="fas fa-comment-dots"></i>
+        </div>
+    
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-window-header">
+                Chatbot
+            </div>
+            <div class="chat-window-content">
+                <p>Bienvenue! Comment puis-je vous aider aujourd'hui?</p>
+                <!-- Contenu du chatbot ici -->
+            </div>
+        </div>
+    
+        <script>
+        function toggleChatWindow() {
+            var chatWindow = document.getElementById("chatWindow");
+            if (chatWindow.style.display === "none" || chatWindow.style.display === "") {
+                chatWindow.style.display = "block";
+            } else {
+                chatWindow.style.display = "none";
+            }
+        }
+        </script>
+        """,
+        unsafe_allow_html=True
+    )
 
 
     
