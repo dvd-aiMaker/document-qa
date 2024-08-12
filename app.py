@@ -149,7 +149,7 @@ if st.session_state.get("logged_in"):
             st.text("BUGGGG    "+ str(number_image))
 
             if number_image > 15:
-                sub_image_paths = create_overlapping_sublists(image_paths, 2, 2)
+                #sub_image_paths = create_overlapping_sublists(image_paths, 2, 2)
 
                 DF, DF_SHOW = [], []
                 print("Extraction is starting from invoice")
