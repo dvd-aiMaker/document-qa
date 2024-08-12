@@ -113,13 +113,9 @@ if st.session_state.get("logged_in"):
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
         cursor: pointer;
         z-index: 1000;
-    }
-
-    /* Icône de la bulle de chat */
-    .chat-bubble i {
-        color: white;
-        font-size: 24px;
-        line-height: 50px;
+        line-height: 50px; /* Alignement vertical */
+        font-size: 24px; /* Taille du texte */
+        color: white; /* Couleur du texte */
     }
 
     /* Fenêtre de chat */
@@ -165,7 +161,7 @@ if st.session_state.get("logged_in"):
     </style>
 
     <div class="chat-bubble" onclick="toggleChatWindow()">
-        <i class="fas fa-comment-dots"></i>
+        💬
     </div>
 
     <div class="chat-window" id="chatWindow">
@@ -193,7 +189,7 @@ if st.session_state.get("logged_in"):
             event.preventDefault();
             var userInput = document.getElementById("chatInput").value;
             if (userInput !== "") {
-                var chatContent = document.getElementById("chatContent");
+                var chatContent = document.getElement.getElementById("chatContent");
 
                 // Ajouter le message de l'utilisateur
                 var userMessage = document.createElement("p");
@@ -217,8 +213,7 @@ if st.session_state.get("logged_in"):
     });
     </script>
     """,
-    unsafe_allow_html=True
-)
+    unsafe_allow_html=True)
 
 
     
