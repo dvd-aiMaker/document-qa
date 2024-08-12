@@ -155,16 +155,9 @@ if st.session_state.get("logged_in"):
                 print("Extraction is starting from invoice")
                 for i in range(len(sub_image_paths)):
                     sublist = sub_image_paths[i]
-                    st.text("BUGGG: "+ len(sub_image_paths))
+                    st.text("BUGGG: "+str(i)+" "+ str(len(sublist)))
                     #df, df_show = extract_text_from_invoice(sublist,openai_api_key,selection)
-                    DF.append(df), DF_SHOW.append(df_show)
-
-                DF, DF_SHOW = [], []
-                print("Extraction is starting from invoice")
-                for i in range(len(sub_image_paths)):
-                    sublist = sub_image_paths[i]
-                    df, df_show = extract_text_from_invoice(sublist,openai_api_key,selection)
-                    DF.append(df), DF_SHOW.append(df_show)
+                    #DF.append(df), DF_SHOW.append(df_show)
 
                 for i in range(len(sub_image_paths)):
                     st.dataframe(DF[i])
