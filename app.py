@@ -158,7 +158,7 @@ if st.session_state.get("logged_in"):
                 df2, df_show2 = extract_text_from_invoice(image_paths_2 ,openai_api_key,selection)
 
                 df = pd.concat([df1, df2], ignore_index=True)
-                df_show = compute_df(df)
+                df_show = compute_df(df, selection)
 
                 st.dataframe(df)
                 st.dataframe(df_show)
