@@ -94,6 +94,41 @@ Client = ["","Grosfillex"]
 
 if st.session_state.get("logged_in"):
     st.image("image/vuaillat.jpg", use_column_width=True)
+
+
+
+    # Placeholder for chat history
+    if "messages" not in st.session_state:
+        st.session_state.messages = []
+    
+    # Afficher l'historique des messages
+    for message in st.session_state.messages:
+        st.write(f"**{message['role']}**: {message['content']}")
+    
+    # Saisie utilisateur
+    user_input = st.text_input("Vous:", key="input")
+    
+    if st.button("Envoyer"):
+        if user_input:
+            # Ajouter le message de l'utilisateur à l'historique
+            st.session_state.messages.append({"role": "Vous", "content": user_input})
+            
+            # Simuler une réponse du chatbot (vous pouvez remplacer par une API)
+            response = f"Réponse du chatbot à '{user_input}'"
+    
+            # Ajouter la réponse du chatbot à l'historique
+            st.session_state.messages.append({"role": "Chatbot", "content": response})
+            
+            # Effacer le champ de saisie après l'envoi
+            st.session_state.input = ""
+            
+            # Redessiner l'interface pour afficher la réponse
+            st.experimental_rerun()
+
+
+
+
+
     
     # Show title and description.
     st.title("📄 CustomSmart")
