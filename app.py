@@ -146,7 +146,7 @@ if st.session_state.get("logged_in"):
                 print("image path :", img) 
             
             number_image = len(image_paths)
-            st.text("BUGGGG    "+ str(number_image))
+            st.text("Nombre de page :    "+ str(number_image))
 
             if number_image > 15:
                 #sub_image_paths = create_overlapping_sublists(image_paths, 2, 2)
