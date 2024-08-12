@@ -150,18 +150,19 @@ if st.session_state.get("logged_in"):
 
             if number_image > 15:
                 #sub_image_paths = create_overlapping_sublists(image_paths, 2, 2)
+                image_paths_1 = image_paths[:(number_image//2) -1]
+                image_paths_2 = image_paths[(number_image//2) -1:]
 
                 DF, DF_SHOW = [], []
-                print("Extraction is starting from invoice")
-                for i in range(len(sub_image_paths)):
-                    sublist = sub_image_paths[i]
-                    st.text("BUGGG: "+str(i)+" "+ str(len(sublist)))
-                    #df, df_show = extract_text_from_invoice(sublist,openai_api_key,selection)
-                    #DF.append(df), DF_SHOW.append(df_show)
+                df1, df_show1 = extract_text_from_invoice(image_paths_1 ,openai_api_key,selection)
+                df2, df_show2 = extract_text_from_invoice(image_paths_2 ,openai_api_key,selection)
 
-                for i in range(len(sub_image_paths)):
-                    st.dataframe(DF[i])
-                    st.dataframe(DF_SHOW[i])
+                df = pd.concat([df1, df2], ignore_index=True)
+                df_show = compute_df(df)
+
+                st.dataframe(df)
+                st.dataframe(df_show)
+
             else:
                 df, df_show = extract_text_from_invoice(image_paths ,openai_api_key,selection)
                 st.dataframe(df)
