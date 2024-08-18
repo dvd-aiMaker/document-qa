@@ -97,124 +97,13 @@ if st.session_state.get("logged_in"):
     st.image("image/vuaillat.jpg", use_column_width=True)
 
 
-    # HTML et CSS pour la bulle de chat
-    st.markdown(
-    """
-    <style>
-    /* Conteneur de la bulle de chat */
-    .chat-bubble {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        width: 50px;
-        height: 50px;
-        background-color: #4CAF50;
-        border-radius: 50%;
-        text-align: center;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-        cursor: pointer;
-        z-index: 1000;
-        line-height: 50px; /* Alignement vertical */
-        font-size: 24px; /* Taille du texte */
-        color: white; /* Couleur du texte */
-    }
+    # Créer une boîte de dialogue dans la barre latérale droite
+    with st.sidebar:
+        st.header("Boîte de dialogue")
+        user_input = st.text_input("Entrez quelque chose :")
+        if st.button("Valider"):
+            st.write("Vous avez entré :", user_input)
 
-    /* Fenêtre de chat */
-    .chat-window {
-        display: none;
-        position: fixed;
-        bottom: 80px;
-        right: 20px;
-        width: 300px;
-        background-color: white;
-        border-radius: 10px;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-        z-index: 1000;
-    }
-
-    /* En-tête de la fenêtre de chat */
-    .chat-window-header {
-        padding: 10px;
-        background-color: #4CAF50;
-        color: white;
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
-        text-align: center;
-    }
-
-    /* Contenu de la fenêtre de chat */
-    .chat-window-content {
-        padding: 10px;
-        max-height: 300px;
-        overflow-y: auto;
-    }
-
-    /* Champ de saisie */
-    .chat-input {
-        width: 100%;
-        padding: 10px;
-        border: none;
-        border-top: 1px solid #ddd;
-        border-bottom-left-radius: 10px;
-        border-bottom-right-radius: 10px;
-        box-sizing: border-box;
-    }
-    </style>
-
-    <div class="chat-bubble" onclick="toggleChatWindow()">
-        💬
-    </div>
-
-    <div class="chat-window" id="chatWindow">
-        <div class="chat-window-header">
-            Chatbot
-        </div>
-        <div class="chat-window-content" id="chatContent">
-            <!-- Les messages du chatbot et de l'utilisateur seront ajoutés ici -->
-        </div>
-        <input type="text" id="chatInput" class="chat-input" placeholder="Tapez votre message...">
-    </div>
-
-    <script>
-    function toggleChatWindow() {
-        var chatWindow = document.getElementById("chatWindow");
-        if (chatWindow.style.display === "none" || chatWindow.style.display === "") {
-            chatWindow.style.display = "block";
-        } else {
-            chatWindow.style.display = "none";
-        }
-    }
-
-    document.getElementById("chatInput").addEventListener("keypress", function(event) {
-        if (event.key === "Enter") {
-            event.preventDefault();
-            var userInput = document.getElementById("chatInput").value;
-            if (userInput !== "") {
-                var chatContent = document.getElement.getElementById("chatContent");
-
-                // Ajouter le message de l'utilisateur
-                var userMessage = document.createElement("p");
-                userMessage.textContent = "Vous: " + userInput;
-                chatContent.appendChild(userMessage);
-
-                // Réinitialiser le champ de saisie
-                document.getElementById("chatInput").value = "";
-
-                // Simuler une réponse du chatbot
-                setTimeout(function() {
-                    var botMessage = document.createElement("p");
-                    botMessage.textContent = "Chatbot: " + "Ceci est une réponse simulée.";
-                    chatContent.appendChild(botMessage);
-
-                    // Faire défiler la fenêtre de chat vers le bas
-                    chatContent.scrollTop = chatContent.scrollHeight;
-                }, 1000);
-            }
-        }
-    });
-    </script>
-    """,
-    unsafe_allow_html=True)
 
 
     
