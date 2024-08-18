@@ -96,30 +96,11 @@ Client_export = ["","Grosfillex"]
 if st.session_state.get("logged_in"):
     st.image("image/vuaillat.jpg", use_column_width=True)
 
-    # Injecter du CSS pour déplacer la barre latérale à droite
-    st.markdown(
-        """
-        <style>
-        .css-18e3th9 {
-            flex-direction: row-reverse;
-        }
-        .css-1d391kg {
-            width: 100%;
-            padding: 1rem 1rem 1rem 1rem;
-        }
-        .css-1v3fvcr {
-            width: 100%;
-            padding: 1rem 1rem 1rem 1rem;
-        }
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
     # Créer une boîte de dialogue dans la barre latérale droite
     with st.sidebar:
-        st.header("Boîte de dialogue")
-        user_input = st.text_input("Entrez quelque chose :")
-        if st.button("Valider"):
+        st.header("Assistant HS Code")
+        user_input = st.text_input("Demandez votre HS Code...")
+        if st.button("Recherche"):
             st.write("Vous avez entré :", user_input)
 
 
