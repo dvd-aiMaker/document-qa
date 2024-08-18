@@ -198,7 +198,7 @@ if st.session_state.get("logged_in"):
                 df = pd.concat(DF, ignore_index=True)
                 df_show = compute_df(df, selection)
 
-                st.text("Valeur Totale: "+ str(df_show['Montant'].sum()))
+                st.text("Valeur Totale: "+ str(df_show['Valeur'].sum()))
                 st.text("Poids Total: "+ str(df_show["Poids_total"].sum()))
 
 
