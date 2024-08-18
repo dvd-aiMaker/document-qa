@@ -60,7 +60,22 @@ if connect == False:
 Type_client = ["Ponctuel", "Régulier"]
 Type_douane = ["Import", "Export"]
 Client_import = ["Contacter votre administrateur pour ajouter un client à l'import"]
-Client_export = ["","Grosfillex"]
+Client_export = ["", "Agidra", 
+                 "Application des gaz", 
+                 "Arcom", 
+                 "Eda", 
+                 "Eno", 
+                 "Gaggione",
+                "Grosfillex",
+                "Levac",
+                "Maison du monde",
+                "Pancosma",
+                "Reine",
+                "Rosin",
+                "Schilliger",
+                "Univar"]
+
+
 
 # # Injecter du CSS pour changer la couleur de fond
 # st.markdown(
