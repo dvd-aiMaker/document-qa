@@ -33,7 +33,7 @@ from login import load_config, check_login
 config = load_config()
 users = config["users"]
 
-connect = False
+connect = True
 
 if connect == False:
     # Vérification de l'état de connexion
