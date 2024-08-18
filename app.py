@@ -181,9 +181,6 @@ if st.session_state.get("logged_in"):
             
             number_image = len(image_paths)
             st.text("Nombre de page :    "+ str(number_image))
-
-            # Force une réinitialisation de l'interface pour que le fichier disparaisse
-            st.experimental_set_query_params()
             
             if number_image > 15:
                 #sub_image_paths = create_overlapping_sublists(image_paths, 2, 2)
@@ -229,6 +226,9 @@ if st.session_state.get("logged_in"):
                 elif selection == "Grosfillex":
                     st.text("Valeur Totale: "+ str(df_show['Valeur'].sum()))
                     st.text("Poids Total: "+ str(df_show["Poids"].sum()))
+                elif selection == "Levac":
+                    st.text("Valeur Totale: "+ str(df_show['Montant'].sum()))
+                    st.text("Poids Total: "+ str(df_show["Poids_total"].sum()))
                 
             
             #df, df_show = extract_text_from_invoice(image_paths,openai_api_key,selection)
