@@ -98,7 +98,8 @@ def chat_multi_vision(image_paths, api_key, prompt):
 
     headers = {
     "Content-Type": "application/json",
-    "Authorization": f"Bearer {api_key}"
+    "api-key": api_key,
+    #"Authorization": f"Bearer {api_key}"
     }
 
     # Construire le contenu du message de l'utilisateur avec plusieurs images
