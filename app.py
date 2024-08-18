@@ -59,7 +59,8 @@ if connect == False:
 
 Type_client = ["Ponctuel", "Régulier"]
 Type_douane = ["Import", "Export"]
-Client = ["","Grosfillex"]
+Client_import = ["","Grosfillex"]
+Client_export = ["","Grosfillex"]
 
 # # Injecter du CSS pour changer la couleur de fond
 # st.markdown(
@@ -238,10 +239,10 @@ if st.session_state.get("logged_in"):
     
             if option_Type_douane=="Export":
                 # Ajouter un menu déroulant à l'application
-                selection = st.selectbox("Sélectionnez un client :", Client)
+                selection = st.selectbox("Sélectionnez un client :", Client_export)
             elif option_Type_douane=="Import":
                 # Ajouter un menu déroulant à l'application
-                selection = st.selectbox("Sélectionnez un client :", Client)
+                selection = st.selectbox("Sélectionnez un client :", Client_import)
             else:
                 selection = "Ponctuel"
                
