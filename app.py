@@ -98,7 +98,7 @@ if st.session_state.get("logged_in"):
 
     # Créer une boîte de dialogue dans la barre latérale droite
     with st.sidebar:
-        st.header("Assistant HS Code")
+        st.header("Assistant HS Code 🔍 ")
         user_input = st.text_input("Demandez votre HS Code...")
         if st.button("Recherche"):
             st.write("Vous avez entré :", user_input)
