@@ -59,7 +59,7 @@ if connect == False:
 
 Type_client = ["Ponctuel", "Régulier"]
 Type_douane = ["Import", "Export"]
-Client_import = ["","Grosfillex"]
+Client_import = ["Contacter votre administrateur pour ajouter un client à l'import"]
 Client_export = ["","Grosfillex"]
 
 # # Injecter du CSS pour changer la couleur de fond
