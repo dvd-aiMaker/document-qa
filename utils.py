@@ -18,6 +18,7 @@ import streamlit as st
 
 config = load_config()
 
+ENDPOINT = config['ENDPOINT']
 MODEL = config['gpt_model'] # "gpt-4o"
 #PDF = config['invoice_path']
 #FOLDER = config['image_folder']
@@ -130,7 +131,8 @@ def chat_multi_vision(image_paths, api_key, prompt):
     "top_p": 0.9,
     }
 
-    response = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload)
+    # response = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload)
+    response = requests.post(ENDPOINT, headers=headers, json=payload)
     return response
 
 
