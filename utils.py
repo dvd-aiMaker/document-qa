@@ -180,7 +180,7 @@ def chat_df(image_paths, api_key, prompt1):
 
     json_str_cleaned = table1json.strip().replace('\n', '').replace('Tableau_A=', '').replace("Tableau_A =", '')
     
-    
+    st.write("BUGGGGG   "+ str(json_str_cleaned))
     data = json.loads(json_str_cleaned)
     df = pd.DataFrame(data)
 
