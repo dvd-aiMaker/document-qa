@@ -132,6 +132,7 @@ def chat_multi_vision(image_paths, api_key, prompt):
     }
 
     # response = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload)
+    ENDPOINT = "https://mvd-customgpt-sc.openai.azure.com/openai/deployments/gpt-4o/chat/completions?api-version=2024-02-15-preview"
     response = requests.post(ENDPOINT, headers=headers, json=payload)
     return response
 
