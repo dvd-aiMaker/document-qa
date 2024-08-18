@@ -21,7 +21,7 @@ import base64
 
 import fitz  # PyMuPDF
 
-from utils import pdf2img, encode_image, pdf_to_jpg, chat_df, on_upload_change, extract_number, create_overlapping_sublists
+from utils import pdf2img, encode_image, pdf_to_jpg, chat_df, on_upload_change, extract_number, create_overlapping_sublists, chat_HS_code
 from prompt import GPT_prompt
 from build_table import process_df, compute_df, extract_text_from_invoice
 from login import load_config, check_login
@@ -100,8 +100,9 @@ if st.session_state.get("logged_in"):
     with st.sidebar:
         st.header("Assistant HS Code 🔍 ")
         user_input = st.text_input("Demandez votre HS Code...")
+        answer_hs_code = chat_HS_code(user_input, openai_api_key)
         if st.button("Recherche"):
-            st.write("Vous avez entré :", user_input)
+            st.write(answer_hs_code)
 
 
 
