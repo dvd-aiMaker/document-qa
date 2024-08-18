@@ -13,7 +13,8 @@ def GPT_prompt(client):
         prompt1 += " Ajoutes une clé correspondant à la Valeur Douane, met 0 si la clé correspond à la Valeur est non nul, sinon il faut mettre la valeur douane EUR renseigné dans la description."
         prompt1 += " Ajoutes une clé correspondant au Poids. Cette valeur doit être repporté comme un float."
         prompt1 += " Ajoutes une clé correspondant aux Quantités. Cette valeur se trouve dans la colonne 'Qté livrée' et doit être repporté comme un float."
-
+        prompt1 += " Attention, quand une marchandise est écrite en bas d'une facture, elle peut continuer sur la page suivante."
+    
     elif client == "Grosfillex":
         prompt1 += " Ajoutes une clé correspondant à la Designation. Cette valeur correspond à la description de la marchandise."
         prompt1 += " Ajoute une clé correspondant au Code Douane. La valeur est une suite numérique de taille à 8 chiffres qui précède l'indication pays (comme par exemple FR). Attention il ne faut pas confondre avec la Référence Client ou le Code EAN."
