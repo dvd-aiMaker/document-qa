@@ -96,8 +96,6 @@ def chat_HS_code(api_key, prompt):
     "api-key": api_key,
     #"Authorization": f"Bearer {api_key}"
     }
-
-    user_content = {"type": "text", "text": prompt}
     
     payload = {
     "model": MODEL,
@@ -108,7 +106,7 @@ def chat_HS_code(api_key, prompt):
         },
         {
             "role": "user",
-            "content": user_content
+            "content": prompt
         }
     ],
     "temperature": 0.1,
