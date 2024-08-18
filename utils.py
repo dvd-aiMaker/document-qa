@@ -113,11 +113,13 @@ def chat_HS_code(api_key, prompt):
     ],
     "temperature": 0.1,
     "top_p": 0.9,
+    "max_tokens": 300
     }
 
     # response = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload)
     ENDPOINT = "https://mvd-customgpt-sc.openai.azure.com/openai/deployments/gpt-4o/chat/completions?api-version=2024-02-15-preview"
     response = requests.post(ENDPOINT, headers=headers, json=payload)
+    response = response.json()["choices"][0]['message']['content']
     return response
 
 
