@@ -180,7 +180,7 @@ if st.session_state.get("logged_in"):
             number_image = len(image_paths)
             st.text("Nombre de page :    "+ str(number_image))
             
-            st.experimental_rerun()
+            st.experimental_set_query_params()
             
             if number_image > 15:
                 #sub_image_paths = create_overlapping_sublists(image_paths, 2, 2)
