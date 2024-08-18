@@ -182,53 +182,77 @@ if st.session_state.get("logged_in"):
             number_image = len(image_paths)
             st.text("Nombre de page :    "+ str(number_image))
             
-            if number_image > 15:
-                #sub_image_paths = create_overlapping_sublists(image_paths, 2, 2)
-                image_paths_1 = image_paths[:(number_image//2) -2]
-                image_paths_2 = image_paths[(number_image//2) -1:]
-
+            if selection == "Maison du monde":
                 DF, DF_SHOW = [], []
-                df1, df_show1 = extract_text_from_invoice(image_paths_1 ,openai_api_key,selection)
-                df2, df_show2 = extract_text_from_invoice(image_paths_2 ,openai_api_key,selection)
-
-                # Trouver la valeur maximale de l'ID dans df1
-                max_id_df1 = df1['ID'].max()
+                for i in range(len(image_paths)):
+                    image_path_i = image_paths[i]
+                    dfi, df_showi = extract_text_from_invoice(image_path_i ,openai_api_key,selection)
+                    DF.append(dfi), DF_SHOW.append(df_showi)
                 
-                # Ajuster l'ID dans df2 en ajoutant max_id_df1
-                df2['ID'] = df2['ID'] + max_id_df1
+                for i in range(len(DF)-1):
+                    dfi = DF[i]
+                    dfii = DF[i+1]
+                    max_id_dfi = dfi['ID'].max()
+                    dfii['ID'] = dfii['ID'] + max_id_dfi
                 
-                df = pd.concat([df1, df2], ignore_index=True)
+                df = pd.concat(DF, ignore_index=True)
                 df_show = compute_df(df, selection)
 
-                st.dataframe(df)
-                st.dataframe(df_show)
+                st.text("Valeur Totale: "+ str(df_show['Montant'].sum()))
+                st.text("Poids Total: "+ str(df_show["Poids_total"].sum()))
 
-                st.markdown("**Resultat de l'Analyse**")
-                if selection == "Ponctuel":
-                    st.text("Valeur Totale: "+ str(df_show['Montant'].sum()))
-                    st.text("Poids Total: "+ str(df_show["Poids_total"].sum()))
-                elif selection == "Grosfillex":
-                    st.text("Valeur Totale: "+ str(df_show['Valeur'].sum()))
-                    st.text("Poids Total: "+ str(df_show["Poids"].sum()))
-                elif selection == "Levac":
-                    st.text("Valeur Totale: "+ str(df_show['Montant'].sum()))
-                    st.text("Poids Total: "+ str(df_show["Poids_total"].sum()))
 
             else:
-                df, df_show = extract_text_from_invoice(image_paths ,openai_api_key,selection)
-                st.dataframe(df)
-                st.dataframe(df_show)
+                if number_image > 15:
+                    #sub_image_paths = create_overlapping_sublists(image_paths, 2, 2)
+                    image_paths_1 = image_paths[:(number_image//2) -2]
+                    image_paths_2 = image_paths[(number_image//2) -1:]
 
-                st.markdown("**Resultat de l'Analyse**")
-                if selection == "Ponctuel":
-                    st.text("Valeur Totale: "+ str(df_show['Montant'].sum()))
-                    st.text("Poids Total: "+ str(df_show["Poids_total"].sum()))
-                elif selection == "Grosfillex":
-                    st.text("Valeur Totale: "+ str(df_show['Valeur'].sum()))
-                    st.text("Poids Total: "+ str(df_show["Poids"].sum()))
-                elif selection == "Levac":
-                    st.text("Valeur Totale: "+ str(df_show['Montant'].sum()))
-                    st.text("Poids Total: "+ str(df_show["Poids_total"].sum()))
+                    DF, DF_SHOW = [], []
+                    df1, df_show1 = extract_text_from_invoice(image_paths_1 ,openai_api_key,selection)
+                    df2, df_show2 = extract_text_from_invoice(image_paths_2 ,openai_api_key,selection)
+
+                    # Trouver la valeur maximale de l'ID dans df1
+                    max_id_df1 = df1['ID'].max()
+                    
+                    # Ajuster l'ID dans df2 en ajoutant max_id_df1
+                    df2['ID'] = df2['ID'] + max_id_df1
+                    
+                    df = pd.concat([df1, df2], ignore_index=True)
+                    df_show = compute_df(df, selection)
+
+                    st.dataframe(df)
+                    st.dataframe(df_show)
+
+                    st.markdown("**Resultat de l'Analyse**")
+                    if selection == "Ponctuel":
+                        st.text("Valeur Totale: "+ str(df_show['Montant'].sum()))
+                        st.text("Poids Total: "+ str(df_show["Poids_total"].sum()))
+                    elif selection == "Grosfillex":
+                        st.text("Valeur Totale: "+ str(df_show['Valeur'].sum()))
+                        st.text("Poids Total: "+ str(df_show["Poids"].sum()))
+                    elif selection == "Levac":
+                        st.text("Valeur Totale: "+ str(df_show['Montant'].sum()))
+                        st.text("Poids Total: "+ str(df_show["Poids_total"].sum()))
+
+                else:
+                    df, df_show = extract_text_from_invoice(image_paths ,openai_api_key,selection)
+                    st.dataframe(df)
+                    st.dataframe(df_show)
+
+                    st.markdown("**Resultat de l'Analyse**")
+                    if selection == "Ponctuel":
+                        st.text("Valeur Totale: "+ str(df_show['Montant'].sum()))
+                        st.text("Poids Total: "+ str(df_show["Poids_total"].sum()))
+                    elif selection == "Grosfillex":
+                        st.text("Valeur Totale: "+ str(df_show['Valeur'].sum()))
+                        st.text("Poids Total: "+ str(df_show["Poids"].sum()))
+                    elif selection == "Levac":
+                        st.text("Valeur Totale: "+ str(df_show['Montant'].sum()))
+                        st.text("Poids Total: "+ str(df_show["Poids_total"].sum()))
+                    elif selection == "Maison du monde":
+                        st.text("Valeur Totale: "+ str(df_show['Montant'].sum()))
+                        st.text("Poids Total: "+ str(df_show["Poids_total"].sum()))
                 
             
             #df, df_show = extract_text_from_invoice(image_paths,openai_api_key,selection)
