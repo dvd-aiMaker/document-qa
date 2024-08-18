@@ -60,7 +60,7 @@ def process_df(df, selection):
   
   elif selection == "Levac":
     if "Valeur_Douane" not in df.columns and "Valeur Douane" in df.columns:
-    df.rename(columns={"Valeur Douane": "Valeur_Douane"}, inplace=True)
+      df.rename(columns={"Valeur Douane": "Valeur_Douane"}, inplace=True)
 
     df['Poids_total'] = df['Poids'] * df['Quantités']
     # Création de la nouvelle colonne Valeur_totale
