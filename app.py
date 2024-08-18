@@ -157,7 +157,11 @@ if st.session_state.get("logged_in"):
         
         # Charger un fichier PDF si nécessaire
         uploaded_file = st.file_uploader("Téléchargez la facture comme fichier PDF", type="pdf")
+        if mark > 0:
+            del uploaded_file
+        
         mark = 0
+
 
         # Initialisation de l'état de l'application
         if 'extracted_data' not in st.session_state :
@@ -180,7 +184,6 @@ if st.session_state.get("logged_in"):
             number_image = len(image_paths)
             st.text("Nombre de page :    "+ str(number_image))
             
-            st.experimental_set_query_params()
             
             if number_image > 15:
                 #sub_image_paths = create_overlapping_sublists(image_paths, 2, 2)
