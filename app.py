@@ -279,6 +279,12 @@ if st.session_state.get("logged_in"):
                 df1, df_show1 = extract_text_from_invoice(image_paths_1 ,openai_api_key,selection)
                 df2, df_show2 = extract_text_from_invoice(image_paths_2 ,openai_api_key,selection)
 
+                # Trouver la valeur maximale de l'ID dans df1
+                max_id_df1 = df1['ID'].max()
+                
+                # Ajuster l'ID dans df2 en ajoutant max_id_df1
+                df2['ID'] = df2['ID'] + max_id_df1
+                
                 df = pd.concat([df1, df2], ignore_index=True)
                 df_show = compute_df(df, selection)
 
