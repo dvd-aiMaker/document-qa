@@ -170,6 +170,7 @@ if st.session_state.get("logged_in"):
             on_upload_change(uploaded_file, folder)
             mark+=1
             uploaded_file = None
+            st.session_state.uploaded_file = None
         
             image_paths = []
             for img in sorted(glob.glob(folder+"/*jpg"), key=extract_number):
