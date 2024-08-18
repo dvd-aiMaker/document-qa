@@ -90,6 +90,36 @@ def pdf_to_jpg(pdf, output_folder):
     return len(pdf_document)
 
 
+def chat_HS_code(api_key, prompt):
+    headers = {
+    "Content-Type": "application/json",
+    "api-key": api_key,
+    #"Authorization": f"Bearer {api_key}"
+    }
+
+    user_content = {"type": "text", "text": prompt}
+    
+    payload = {
+    "model": MODEL,
+    "messages": [
+        {
+            "role": "system",
+            "content": "Tu es un expert en recherche de HS Code, qui aidera les utilisateurs à trouver précisément le HS Code correpondant à la marchandise qu'ils vont te présenter. Réponds uniqument aux questions relatives à la recherche de HS Code. Ce site internet donne les HS Codes : https://eur-lex.europa.eu/legal-content/FR/TXT/HTML/?uri=OJ:L:2021:385:FULL ."
+        },
+        {
+            "role": "user",
+            "content": user_content
+        }
+    ],
+    "temperature": 0.1,
+    "top_p": 0.9,
+    }
+
+    # response = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload)
+    ENDPOINT = "https://mvd-customgpt-sc.openai.azure.com/openai/deployments/gpt-4o/chat/completions?api-version=2024-02-15-preview"
+    response = requests.post(ENDPOINT, headers=headers, json=payload)
+    return response
+
 
 
 def chat_multi_vision(image_paths, api_key, prompt):
