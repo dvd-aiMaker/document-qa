@@ -33,7 +33,7 @@ from login import load_config, check_login
 config = load_config()
 users = config["users"]
 
-connect = True
+connect = False
 
 if connect == False:
     # Vérification de l'état de connexion
@@ -53,11 +53,7 @@ if connect == False:
         if st.button("Se déconnecter"):
             st.session_state.logged_in = False
             st.experimental_rerun()
-else:
-    st.success(f"Bienvenue {st.session_state.username} !")
-    # Afficher le contenu de l'application ici
-    st.write("Vous êtes connecté et pouvez maintenant accéder à l'application.")
-    connect = True
+
 # -----
 
 
