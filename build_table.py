@@ -89,9 +89,10 @@ def process_df(df, selection):
     df["Poids"] = pd.to_numeric(df['Poids'], errors='coerce')
     df['Poids_total'] = df['Poids'] * df['Quantités']
     # Création de la nouvelle colonne Valeur_totale
-    df['Valeur_totale'] = df.apply(lambda row: row['Valeur'] * row['Quantités'] if row['Valeur'] != 0 else row['Valeur_Douane'] * row['Quantités'], axis=1)
+    #df['Valeur_totale'] = df.apply(lambda row: row['Valeur'] * row['Quantités'] if row['Valeur'] != 0 else row['Valeur_Douane'] * row['Quantités'], axis=1)
     
     df['Valeur'] = pd.to_numeric(df['Valeur'], errors='coerce')
+    df["Poids"] = pd.to_numeric(df['Poids'], errors='coerce')
     df["Poids_total"] = pd.to_numeric(df['Poids_total'], errors='coerce')
     
   else:
@@ -294,7 +295,6 @@ def compute_df_Maison_du_monde(df):
     df_eu_aggregated = df_eu.groupby('Code_Douane').agg({
     'ID': lambda x: list(x),
     'Valeur': 'sum',
-    'Valeur_Douane': 'sum',
     'Poids': 'sum',
     'Quantités': 'sum',
     'Poids_total': 'sum',
@@ -315,7 +315,6 @@ def compute_df_Maison_du_monde(df):
     df_non_eu_aggregated = df_non_eu.groupby('Code_Douane').agg({
     'ID': lambda x: list(x),
     'Valeur': 'sum',
-    'Valeur_Douane': 'sum',
     'Poids': 'sum',
     'Quantités': 'sum',
     'Poids_total': 'sum',
