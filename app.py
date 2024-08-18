@@ -157,9 +157,6 @@ if st.session_state.get("logged_in"):
         
         # Charger un fichier PDF si nécessaire
         uploaded_file = st.file_uploader("Téléchargez la facture comme fichier PDF", type="pdf")
-        if mark > 0:
-            del uploaded_file
-        
         mark = 0
 
 
@@ -173,6 +170,7 @@ if st.session_state.get("logged_in"):
             folder = "content/data"
             on_upload_change(uploaded_file, folder)
             mark+=1
+            del uploaded_file
             uploaded_file = None
             st.session_state.uploaded_file = None
         
