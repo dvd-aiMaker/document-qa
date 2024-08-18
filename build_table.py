@@ -61,7 +61,8 @@ def process_df(df, selection):
   elif selection == "Levac":
     if "Valeur_Douane" not in df.columns and "Valeur Douane" in df.columns:
       df.rename(columns={"Valeur Douane": "Valeur_Douane"}, inplace=True)
-
+        
+    df["Poids"] = pd.to_numeric(df['Poids'], errors='coerce')
     df['Poids_total'] = df['Poids'] * df['Quantités']
     # Création de la nouvelle colonne Valeur_totale
     df['Valeur_totale'] = df.apply(lambda row: row['Valeur'] * row['Quantités'] if row['Valeur'] != 0 else row['Valeur_Douane'] * row['Quantités'], axis=1)
