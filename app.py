@@ -158,13 +158,18 @@ if st.session_state.get("logged_in"):
         # Charger un fichier PDF si nécessaire
         uploaded_file = st.file_uploader("Téléchargez la facture comme fichier PDF", type="pdf")
         mark = 0
-        
+
+        # Initialisation de l'état de l'application
+        if 'extracted_data' not in st.session_state:
+            st.session_state.extracted_data = None
+            
         if uploaded_file != None and mark==0:
             print("Le fichier est uploadé!!!!!!")
             
             folder = "content/data"
             on_upload_change(uploaded_file, folder)
             mark+=1
+            uploaded_file = None
         
             image_paths = []
             for img in sorted(glob.glob(folder+"/*jpg"), key=extract_number):
@@ -216,7 +221,7 @@ if st.session_state.get("logged_in"):
                     st.text("Valeur Totale: "+ str(df_show['Valeur'].sum()))
                     st.text("Poids Total: "+ str(df_show["Poids"].sum()))
                 
-
+            st.session_state.extracted_data = df_show
             
             #df, df_show = extract_text_from_invoice(image_paths,openai_api_key,selection)
             # df = chat_df(image_paths, openai_api_key, GPT_prompt(selection))
