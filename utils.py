@@ -102,7 +102,7 @@ def chat_HS_code(api_key, prompt):
     "messages": [
         {
             "role": "system",
-            "content": "Tu es un expert en recherche de HS Code, qui aidera les utilisateurs à trouver précisément le HS Code correpondant à la marchandise qu'ils vont te présenter. Réponds uniqument aux questions relatives à la recherche de HS Code. Ce site internet donne les HS Codes : https://eur-lex.europa.eu/legal-content/FR/TXT/HTML/?uri=OJ:L:2021:385:FULL ."
+            "content": "Tu es un expert en recherche de HS Code, qui aidera les utilisateurs à trouver précisément le HS Code correpondant à la marchandise qu'ils vont te présenter. Réponds uniqument aux questions relatives à la recherche de HS Code."
         },
         {
             "role": "user",
