@@ -116,7 +116,7 @@ if st.session_state.get("logged_in"):
         with st.sidebar:
             st.header("Assistant HS Code 🔍 ")
             user_input = st.text_input("Demandez votre HS Code...")
-            answer_hs_code = chat_HS_code(user_input, openai_api_key)
+            answer_hs_code = chat_HS_code(str(user_input), openai_api_key)
             if st.button("Recherche"):
                 st.write(answer_hs_code)
 
