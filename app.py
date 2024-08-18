@@ -185,7 +185,7 @@ if st.session_state.get("logged_in"):
             if selection == "Maison du monde":
                 DF, DF_SHOW = [], []
                 for i in range(len(image_paths)):
-                    image_path_i = image_paths[i]
+                    image_path_i = [image_paths[i]]
                     dfi, df_showi = extract_text_from_invoice(image_path_i ,openai_api_key,selection)
                     DF.append(dfi), DF_SHOW.append(df_showi)
                 
