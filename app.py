@@ -114,7 +114,7 @@ if st.session_state.get("logged_in"):
     # Show title and description.
     st.title("📄 CustomSmart")
     st.write(
-        "Téléchargez une facture afin de faire une déclaration douanière – CustomGPT va vous assister! "
+        "Téléchargez une facture afin de préparer une déclaration douanière – CustomGPT va vous assister! "
         "Pour utiliser ce logiciel, renseignez la clé API.")
     
     # Ask user for their OpenAI API key via `st.text_input`.
