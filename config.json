@@ -6,5 +6,5 @@
     },
     "gpt_model": "gpt-4o",
     "ENDPOINT": "https://mvd-customgpt-sc.openai.azure.com/openai/deployments/gpt-4o/chat/completions?api-version=2024-02-15-preview",
-    "zoomfactor": 6
+    "zoomfactor": 5
 }
