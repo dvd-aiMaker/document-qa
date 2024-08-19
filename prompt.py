@@ -3,6 +3,7 @@ def GPT_prompt(client):
     prompt1 += "\n\n"
 
     if client == "Ponctuel":
+        prompt1 += " Pour information, les éléments de la facture à considérer sont dans des tableaux. Il ne faut pas prendre les informations données en bas de page.    "
         prompt1 += " Ajoutes une clé correspondant à la Designation. Cette valeur correspond à la description de la marchandise."
         prompt1 += " Ajoutes une clé correspondant au Code Douane. La valeur est une suite numérique de taille à 8 chiffres qui précède l'indication pays (comme par exemple FR). Attention il ne faut pas confondre avec la Référence Client ou le Code EAN."
         prompt1 += " Si le code douane que tu as rapporté de la facture n'est pas un code à 8 chiffres, tu t'es trompé et tu dois trouver dans la facture le code douane dans la colonne 'Désignation'."
