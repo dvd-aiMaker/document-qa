@@ -55,20 +55,21 @@ def add_row():
 def delete_row(index):
     if not st.session_state.df.empty and 0 <= index < len(st.session_state.df):
         st.session_state.df = st.session_state.df.drop(index).reset_index(drop=True)
+        st.session_state['trigger_update'] = True  # Déclenche un rafraîchissement
 
 # Ajouter une colonne avec des boutons pour supprimer des lignes
-st.session_state.df['Supprimer'] = [
-    st.button(f"Supprimer {i}", key=f"del_{i}") for i in st.session_state.df.index
-]
-
-# Vérifier si un bouton a été cliqué et supprimer la ligne correspondante
+delete_buttons = []
 for i in st.session_state.df.index:
-    if st.session_state.df.loc[i, 'Supprimer']:
+    if st.button(f"Supprimer {i}", key=f"del_{i}"):
         delete_row(i)
-        st.experimental_rerun()  # Pour mettre à jour l'interface après la suppression
+
+# Vérifier si un bouton a été cliqué et mettre à jour le DataFrame
+if 'trigger_update' in st.session_state:
+    del st.session_state['trigger_update']
+    st.experimental_rerun()
 
 # Supprimer la colonne "Supprimer" avant d'afficher la table
-df_display = st.session_state.df.drop(columns=['Supprimer'])
+df_display = st.session_state.df
 
 # Affichage et édition du DataFrame
 gb = GridOptionsBuilder.from_dataframe(df_display)
@@ -96,7 +97,6 @@ if st.button("Ajouter une ligne"):
 # Optionnel: Traitement supplémentaire ou sauvegarde des modifications
 if st.button("Sauvegarder les modifications"):
     st.write("Données sauvegardées:", st.session_state.df)
-
 
 
 
