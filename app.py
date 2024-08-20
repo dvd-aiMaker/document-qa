@@ -59,21 +59,23 @@ if connect == False:
 
 Type_client = ["Ponctuel", "Régulier"]
 Type_douane = ["Import", "Export"]
-Client_import = ["Contacter votre administrateur pour ajouter un client à l'import"]
+
+Client_import = ["Bourquin nutrition",
+                 "Claval",
+                 "Ideal standard",
+                 "Maison du monde",
+                 "Speno",
+                "Contacter votre administrateur pour ajouter un client"]
+
 Client_export = ["", "Agidra", 
-                 "Application des gaz", 
-                 "Arcom", 
-                 "Eda", 
+                 "Application des gaz",  
                  "Eno", 
-                 "Gaggione",
+                 "Fermob",
                 "Grosfillex",
                 "Levac",
                 "Maison du monde",
-                "Pancosma",
-                "Reine",
                 "Rosin",
-                "Schilliger",
-                "Univar"]
+                "Contacter votre administrateur pour ajouter un client"]
 
 
 
