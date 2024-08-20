@@ -28,11 +28,11 @@ from login import load_config, check_login
 
 import streamlit as st
 import pandas as pd
+
+
+
+
 from st_aggrid import AgGrid, GridOptionsBuilder, GridUpdateMode
-
-
-
-
 
 # Créer un DataFrame d'exemple
 if 'df' not in st.session_state:
@@ -45,13 +45,13 @@ if 'df' not in st.session_state:
 
 # Fonction pour ajouter une ligne
 def add_row():
-    new_row = pd.Series(["", "", ""], index=st.session_state.df.columns)
-    st.session_state.df = st.session_state.df.append(new_row, ignore_index=True)
+    new_row = pd.DataFrame([["", "", ""]], columns=st.session_state.df.columns)
+    st.session_state.df = pd.concat([st.session_state.df, new_row], ignore_index=True)
 
 # Fonction pour supprimer une ligne
 def delete_row():
     if not st.session_state.df.empty:
-        st.session_state.df = st.session_state.df[:-1]
+        st.session_state.df = st.session_state.df.iloc[:-1]
 
 # Boutons pour ajouter ou supprimer des lignes
 col1, col2 = st.columns(2)
@@ -89,8 +89,6 @@ st.dataframe(st.session_state.df)
 # Optionnel: Traitement supplémentaire ou sauvegarde des modifications
 if st.button("Sauvegarder les modifications"):
     st.write("Données sauvegardées:", st.session_state.df)
-
-
 
 
 
