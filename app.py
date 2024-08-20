@@ -238,6 +238,24 @@ if st.session_state.get("logged_in"):
                     
                     df = pd.concat([df1, df2], ignore_index=True)
                     df_show = compute_df(df, selection)
+                    
+                    st.dataframe(df)
+                    st.dataframe(df_show)
+
+                    st.markdown("**Resultat de l'Analyse**")
+                    if selection == "Ponctuel":
+                        st.text("Valeur Totale: "+ str(df_show['Montant'].sum()))
+                        st.text("Poids Total: "+ str(df_show["Poids_total"].sum()))
+                    elif selection == "Grosfillex":
+                        st.text("Valeur Totale: "+ str(df_show['Valeur'].sum()))
+                        st.text("Poids Total: "+ str(df_show["Poids"].sum()))
+                    elif selection == "Levac":
+                        st.text("Valeur Totale: "+ str(df_show['Montant'].sum()))
+                        st.text("Poids Total: "+ str(df_show["Poids_total"].sum()))
+
+                else:
+                    df, df_show = extract_text_from_invoice(image_paths ,openai_api_key,selection)
+
                     #---------------------
                     # Créer un DataFrame d'exemple
                     if 'df' not in st.session_state:
@@ -298,22 +316,7 @@ if st.session_state.get("logged_in"):
 
 
                     #---------------------
-                    st.dataframe(df)
-                    st.dataframe(df_show)
-
-                    st.markdown("**Resultat de l'Analyse**")
-                    if selection == "Ponctuel":
-                        st.text("Valeur Totale: "+ str(df_show['Montant'].sum()))
-                        st.text("Poids Total: "+ str(df_show["Poids_total"].sum()))
-                    elif selection == "Grosfillex":
-                        st.text("Valeur Totale: "+ str(df_show['Valeur'].sum()))
-                        st.text("Poids Total: "+ str(df_show["Poids"].sum()))
-                    elif selection == "Levac":
-                        st.text("Valeur Totale: "+ str(df_show['Montant'].sum()))
-                        st.text("Poids Total: "+ str(df_show["Poids_total"].sum()))
-
-                else:
-                    df, df_show = extract_text_from_invoice(image_paths ,openai_api_key,selection)
+                    
                     st.dataframe(df)
                     st.dataframe(df_show)
 
