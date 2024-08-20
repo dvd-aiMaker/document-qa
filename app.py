@@ -37,66 +37,7 @@ from st_aggrid import AgGrid, GridOptionsBuilder, GridUpdateMode
 
 
 
-# Créer un DataFrame d'exemple
-if 'df' not in st.session_state:
-    data = {
-        'Nom': ['Alice', 'Bob', 'Charlie'],
-        'Âge': [24, 19, 32],
-        'Ville': ['Paris', 'Lyon', 'Marseille']
-    }
-    st.session_state.df = pd.DataFrame(data)
 
-# Fonction pour ajouter une ligne
-def add_row():
-    new_row = pd.DataFrame([[None] * len(st.session_state.df.columns)], columns=st.session_state.df.columns)
-    st.session_state.df = pd.concat([st.session_state.df, new_row], ignore_index=True)
-
-# Fonction pour supprimer une ligne spécifique
-def delete_row(index):
-    if not st.session_state.df.empty and 0 <= index < len(st.session_state.df):
-        st.session_state.df = st.session_state.df.drop(index).reset_index(drop=True)
-        st.session_state['trigger_update'] = True  # Déclenche un rafraîchissement
-
-# Ajouter une colonne avec des boutons pour supprimer des lignes
-delete_buttons = []
-for i in st.session_state.df.index:
-    if st.button(f"Supprimer {i}", key=f"del_{i}"):
-        delete_row(i)
-
-# Vérifier si un bouton a été cliqué et mettre à jour le DataFrame
-if 'trigger_update' in st.session_state:
-    del st.session_state['trigger_update']
-    st.experimental_rerun()
-
-# Supprimer la colonne "Supprimer" avant d'afficher la table
-df_display = st.session_state.df
-
-# Affichage et édition du DataFrame
-gb = GridOptionsBuilder.from_dataframe(df_display)
-gb.configure_pagination(paginationAutoPageSize=True)
-gb.configure_side_bar()
-gb.configure_default_column(editable=True)
-gridOptions = gb.build()
-
-# Afficher le DataFrame avec possibilité d'édition
-st.write("Tableau éditable:")
-grid_response = AgGrid(
-    df_display,
-    gridOptions=gridOptions,
-    update_mode=GridUpdateMode.MODEL_CHANGED,
-    allow_unsafe_jscode=True,
-)
-
-# Obtenir le DataFrame modifié
-st.session_state.df.update(pd.DataFrame(grid_response['data']))
-
-# Boutons pour ajouter une ligne
-if st.button("Ajouter une ligne"):
-    add_row()
-
-# Optionnel: Traitement supplémentaire ou sauvegarde des modifications
-if st.button("Sauvegarder les modifications"):
-    st.write("Données sauvegardées:", st.session_state.df)
 
 
 
@@ -297,7 +238,66 @@ if st.session_state.get("logged_in"):
                     
                     df = pd.concat([df1, df2], ignore_index=True)
                     df_show = compute_df(df, selection)
+                    #---------------------
+                    # Créer un DataFrame d'exemple
+                    if 'df' not in st.session_state:
+                        data = df
+                        st.session_state.df = pd.DataFrame(data)
+                    
+                    # Fonction pour ajouter une ligne
+                    def add_row():
+                        new_row = pd.DataFrame([[None] * len(st.session_state.df.columns)], columns=st.session_state.df.columns)
+                        st.session_state.df = pd.concat([st.session_state.df, new_row], ignore_index=True)
+                    
+                    # Fonction pour supprimer une ligne spécifique
+                    def delete_row(index):
+                        if not st.session_state.df.empty and 0 <= index < len(st.session_state.df):
+                            st.session_state.df = st.session_state.df.drop(index).reset_index(drop=True)
+                            st.session_state['trigger_update'] = True  # Déclenche un rafraîchissement
+                    
+                    # Ajouter une colonne avec des boutons pour supprimer des lignes
+                    delete_buttons = []
+                    for i in st.session_state.df.index:
+                        if st.button(f"Supprimer {i}", key=f"del_{i}"):
+                            delete_row(i)
+                    
+                    # Vérifier si un bouton a été cliqué et mettre à jour le DataFrame
+                    if 'trigger_update' in st.session_state:
+                        del st.session_state['trigger_update']
+                        st.experimental_rerun()
+                    
+                    # Supprimer la colonne "Supprimer" avant d'afficher la table
+                    df_display = st.session_state.df
+                    
+                    # Affichage et édition du DataFrame
+                    gb = GridOptionsBuilder.from_dataframe(df_display)
+                    gb.configure_pagination(paginationAutoPageSize=True)
+                    gb.configure_side_bar()
+                    gb.configure_default_column(editable=True)
+                    gridOptions = gb.build()
+                    
+                    # Afficher le DataFrame avec possibilité d'édition
+                    st.write("Tableau éditable:")
+                    grid_response = AgGrid(
+                        df_display,
+                        gridOptions=gridOptions,
+                        update_mode=GridUpdateMode.MODEL_CHANGED,
+                        allow_unsafe_jscode=True,
+                    )
+                    
+                    # Obtenir le DataFrame modifié
+                    st.session_state.df.update(pd.DataFrame(grid_response['data']))
+                    
+                    # Boutons pour ajouter une ligne
+                    if st.button("Ajouter une ligne"):
+                        add_row()
+                    
+                    # Optionnel: Traitement supplémentaire ou sauvegarde des modifications
+                    if st.button("Sauvegarder les modifications"):
+                        st.write("Données sauvegardées:", st.session_state.df)
 
+
+                    #---------------------
                     st.dataframe(df)
                     st.dataframe(df_show)
 
