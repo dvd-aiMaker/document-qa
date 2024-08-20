@@ -25,7 +25,7 @@ from prompt import GPT_prompt
 from build_table import process_df, compute_df, extract_text_from_invoice
 from login import load_config, check_login
 
-
+from st_aggrid import AgGrid, GridOptionsBuilder, GridUpdateMode
 # Créer un DataFrame d'exemple
 data = {
     'Nom': ['Alice', 'Bob', 'Charlie'],
