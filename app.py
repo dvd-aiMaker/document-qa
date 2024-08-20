@@ -30,16 +30,41 @@ import streamlit as st
 import pandas as pd
 from st_aggrid import AgGrid, GridOptionsBuilder, GridUpdateMode
 
+
+
+
+
 # Créer un DataFrame d'exemple
-data = {
-    'Nom': ['Alice', 'Bob', 'Charlie'],
-    'Âge': [24, 19, 32],
-    'Ville': ['Paris', 'Lyon', 'Marseille']
-}
-df = pd.DataFrame(data)
+if 'df' not in st.session_state:
+    data = {
+        'Nom': ['Alice', 'Bob', 'Charlie'],
+        'Âge': [24, 19, 32],
+        'Ville': ['Paris', 'Lyon', 'Marseille']
+    }
+    st.session_state.df = pd.DataFrame(data)
+
+# Fonction pour ajouter une ligne
+def add_row():
+    new_row = pd.Series(["", "", ""], index=st.session_state.df.columns)
+    st.session_state.df = st.session_state.df.append(new_row, ignore_index=True)
+
+# Fonction pour supprimer une ligne
+def delete_row():
+    if not st.session_state.df.empty:
+        st.session_state.df = st.session_state.df[:-1]
+
+# Boutons pour ajouter ou supprimer des lignes
+col1, col2 = st.columns(2)
+with col1:
+    if st.button("Ajouter une ligne"):
+        add_row()
+
+with col2:
+    if st.button("Supprimer la dernière ligne"):
+        delete_row()
 
 # Configurer AgGrid pour permettre l'édition
-gb = GridOptionsBuilder.from_dataframe(df)
+gb = GridOptionsBuilder.from_dataframe(st.session_state.df)
 gb.configure_pagination(paginationAutoPageSize=True)  # Optionnel: pagination automatique
 gb.configure_side_bar()  # Optionnel: barre latérale avec options de filtrage et de tri
 gb.configure_default_column(editable=True)  # Rendre toutes les colonnes éditables
@@ -48,22 +73,22 @@ gridOptions = gb.build()
 # Afficher le DataFrame avec possibilité d'édition
 st.write("Tableau éditable:")
 grid_response = AgGrid(
-    df,
+    st.session_state.df,
     gridOptions=gridOptions,
     update_mode=GridUpdateMode.MODEL_CHANGED,  # Met à jour le DataFrame lorsque des modifications sont apportées
     allow_unsafe_jscode=True,  # Permet l'utilisation de JavaScript personnalisé
 )
 
 # Obtenir le DataFrame modifié
-df_modified = grid_response['data']
+st.session_state.df = pd.DataFrame(grid_response['data'])
 
 # Afficher le DataFrame modifié
 st.write("Tableau modifié:")
-st.dataframe(df_modified)
+st.dataframe(st.session_state.df)
 
 # Optionnel: Traitement supplémentaire ou sauvegarde des modifications
 if st.button("Sauvegarder les modifications"):
-    st.write("Données sauvegardées:", df_modified)
+    st.write("Données sauvegardées:", st.session_state.df)
 
 
 
