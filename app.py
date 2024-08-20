@@ -36,6 +36,7 @@ from st_aggrid import AgGrid, GridOptionsBuilder, GridUpdateMode
 
 
 
+
 # Créer un DataFrame d'exemple
 if 'df' not in st.session_state:
     data = {
@@ -47,7 +48,7 @@ if 'df' not in st.session_state:
 
 # Fonction pour ajouter une ligne
 def add_row():
-    new_row = pd.DataFrame([["", "", ""]], columns=st.session_state.df.columns)
+    new_row = pd.DataFrame([[None] * len(st.session_state.df.columns)], columns=st.session_state.df.columns)
     st.session_state.df = pd.concat([st.session_state.df, new_row], ignore_index=True)
 
 # Fonction pour supprimer une ligne spécifique
@@ -95,6 +96,9 @@ if st.button("Ajouter une ligne"):
 # Optionnel: Traitement supplémentaire ou sauvegarde des modifications
 if st.button("Sauvegarder les modifications"):
     st.write("Données sauvegardées:", st.session_state.df)
+
+
+
 
 
 
