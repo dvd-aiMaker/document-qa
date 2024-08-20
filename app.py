@@ -25,8 +25,7 @@ from prompt import GPT_prompt
 from build_table import process_df, compute_df, extract_text_from_invoice
 from login import load_config, check_login
 
-from st_aggrid import AgGrid, GridOptionsBuilder, GridUpdateMode
-# Créer un DataFrame d'exemple
+# Exemple de DataFrame
 data = {
     'Nom': ['Alice', 'Bob', 'Charlie'],
     'Âge': [24, 19, 32],
@@ -34,32 +33,34 @@ data = {
 }
 df = pd.DataFrame(data)
 
-# Configurer AgGrid pour permettre l'édition
-gb = GridOptionsBuilder.from_dataframe(df)
-gb.configure_pagination(paginationAutoPageSize=True)  # Optionnel: pagination automatique
-gb.configure_side_bar()  # Optionnel: barre latérale avec options de filtrage et de tri
-gb.configure_default_column(editable=True)  # Rendre toutes les colonnes éditables
-gridOptions = gb.build()
+st.write("Tableau original:")
+st.dataframe(df)
 
-# Afficher le DataFrame avec possibilité d'édition
-st.write("Tableau éditable:")
-grid_response = AgGrid(
-    df,
-    gridOptions=gridOptions,
-    update_mode=GridUpdateMode.MODEL_CHANGED,  # Met à jour le DataFrame lorsque des modifications sont apportées
-    allow_unsafe_jscode=True,  # Permet l'utilisation de JavaScript personnalisé
-)
+# Créer un formulaire pour éditer le DataFrame
+st.write("Modifier le tableau:")
 
-# Obtenir le DataFrame modifié
-df_modified = grid_response['data']
+# Initialiser une liste pour stocker les modifications
+modified_data = []
 
-# Afficher le DataFrame modifié
-st.write("Tableau modifié:")
-st.dataframe(df_modified)
+# Afficher chaque ligne du DataFrame sous forme de champs de saisie
+for i in range(len(df)):
+    with st.form(key=f'form_{i}'):
+        nom = st.text_input('Nom', value=df['Nom'][i], key=f'nom_{i}')
+        age = st.number_input('Âge', value=df['Âge'][i], key=f'age_{i}')
+        ville = st.text_input('Ville', value=df['Ville'][i], key=f'ville_{i}')
+        submit_button = st.form_submit_button(label='Enregistrer')
 
-# Optionnel: Traitement supplémentaire ou sauvegarde des modifications
-if st.button("Sauvegarder les modifications"):
-    st.write("Données sauvegardées:", df_modified)
+        # Ajouter les données modifiées à la liste
+        if submit_button:
+            modified_data.append({'Nom': nom, 'Âge': age, 'Ville': ville})
+
+# Si des modifications ont été faites, afficher le DataFrame modifié
+if modified_data:
+    df_modified = pd.DataFrame(modified_data)
+    st.write("Tableau modifié:")
+    st.dataframe(df_modified)
+else:
+    st.write("Aucune modification n'a été enregistrée.")
 
 
 # ----- CONNEXION 
