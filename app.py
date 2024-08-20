@@ -26,6 +26,41 @@ from build_table import process_df, compute_df, extract_text_from_invoice
 from login import load_config, check_login
 
 
+# Créer un DataFrame d'exemple
+data = {
+    'Nom': ['Alice', 'Bob', 'Charlie'],
+    'Âge': [24, 19, 32],
+    'Ville': ['Paris', 'Lyon', 'Marseille']
+}
+df = pd.DataFrame(data)
+
+# Configurer AgGrid pour permettre l'édition
+gb = GridOptionsBuilder.from_dataframe(df)
+gb.configure_pagination(paginationAutoPageSize=True)  # Optionnel: pagination automatique
+gb.configure_side_bar()  # Optionnel: barre latérale avec options de filtrage et de tri
+gb.configure_default_column(editable=True)  # Rendre toutes les colonnes éditables
+gridOptions = gb.build()
+
+# Afficher le DataFrame avec possibilité d'édition
+st.write("Tableau éditable:")
+grid_response = AgGrid(
+    df,
+    gridOptions=gridOptions,
+    update_mode=GridUpdateMode.MODEL_CHANGED,  # Met à jour le DataFrame lorsque des modifications sont apportées
+    allow_unsafe_jscode=True,  # Permet l'utilisation de JavaScript personnalisé
+)
+
+# Obtenir le DataFrame modifié
+df_modified = grid_response['data']
+
+# Afficher le DataFrame modifié
+st.write("Tableau modifié:")
+st.dataframe(df_modified)
+
+# Optionnel: Traitement supplémentaire ou sauvegarde des modifications
+if st.button("Sauvegarder les modifications"):
+    st.write("Données sauvegardées:", df_modified)
+
 
 # ----- CONNEXION 
 # Charger les utilisateurs et mots de passe à partir du fichier de configuration
