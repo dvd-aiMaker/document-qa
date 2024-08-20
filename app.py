@@ -34,6 +34,8 @@ import pandas as pd
 
 from st_aggrid import AgGrid, GridOptionsBuilder, GridUpdateMode
 
+
+
 # Créer un DataFrame d'exemple
 if 'df' not in st.session_state:
     data = {
@@ -48,47 +50,52 @@ def add_row():
     new_row = pd.DataFrame([["", "", ""]], columns=st.session_state.df.columns)
     st.session_state.df = pd.concat([st.session_state.df, new_row], ignore_index=True)
 
-# Fonction pour supprimer une ligne
-def delete_row():
-    if not st.session_state.df.empty:
-        st.session_state.df = st.session_state.df.iloc[:-1]
+# Fonction pour supprimer une ligne spécifique
+def delete_row(index):
+    if not st.session_state.df.empty and 0 <= index < len(st.session_state.df):
+        st.session_state.df = st.session_state.df.drop(index).reset_index(drop=True)
 
-# Boutons pour ajouter ou supprimer des lignes
-col1, col2 = st.columns(2)
-with col1:
-    if st.button("Ajouter une ligne"):
-        add_row()
+# Ajouter une colonne avec des boutons pour supprimer des lignes
+st.session_state.df['Supprimer'] = [
+    st.button(f"Supprimer {i}", key=f"del_{i}") for i in st.session_state.df.index
+]
 
-with col2:
-    if st.button("Supprimer la dernière ligne"):
-        delete_row()
+# Vérifier si un bouton a été cliqué et supprimer la ligne correspondante
+for i in st.session_state.df.index:
+    if st.session_state.df.loc[i, 'Supprimer']:
+        delete_row(i)
+        st.experimental_rerun()  # Pour mettre à jour l'interface après la suppression
 
-# Configurer AgGrid pour permettre l'édition
-gb = GridOptionsBuilder.from_dataframe(st.session_state.df)
-gb.configure_pagination(paginationAutoPageSize=True)  # Optionnel: pagination automatique
-gb.configure_side_bar()  # Optionnel: barre latérale avec options de filtrage et de tri
-gb.configure_default_column(editable=True)  # Rendre toutes les colonnes éditables
+# Supprimer la colonne "Supprimer" avant d'afficher la table
+df_display = st.session_state.df.drop(columns=['Supprimer'])
+
+# Affichage et édition du DataFrame
+gb = GridOptionsBuilder.from_dataframe(df_display)
+gb.configure_pagination(paginationAutoPageSize=True)
+gb.configure_side_bar()
+gb.configure_default_column(editable=True)
 gridOptions = gb.build()
 
 # Afficher le DataFrame avec possibilité d'édition
 st.write("Tableau éditable:")
 grid_response = AgGrid(
-    st.session_state.df,
+    df_display,
     gridOptions=gridOptions,
-    update_mode=GridUpdateMode.MODEL_CHANGED,  # Met à jour le DataFrame lorsque des modifications sont apportées
-    allow_unsafe_jscode=True,  # Permet l'utilisation de JavaScript personnalisé
+    update_mode=GridUpdateMode.MODEL_CHANGED,
+    allow_unsafe_jscode=True,
 )
 
 # Obtenir le DataFrame modifié
-st.session_state.df = pd.DataFrame(grid_response['data'])
+st.session_state.df.update(pd.DataFrame(grid_response['data']))
 
-# Afficher le DataFrame modifié
-st.write("Tableau modifié:")
-st.dataframe(st.session_state.df)
+# Boutons pour ajouter une ligne
+if st.button("Ajouter une ligne"):
+    add_row()
 
 # Optionnel: Traitement supplémentaire ou sauvegarde des modifications
 if st.button("Sauvegarder les modifications"):
     st.write("Données sauvegardées:", st.session_state.df)
+
 
 
 
