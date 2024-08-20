@@ -158,7 +158,6 @@ if st.session_state.get("logged_in"):
         
         # Charger un fichier PDF si nécessaire
         uploaded_file = st.file_uploader("Téléchargez la facture comme fichier PDF", type="pdf", accept_multiple_files=True)
-        uploaded_files = st.file_uploader("Téléchargez la facture comme fichier PDF 2", type="pdf", accept_multiple_files=True)
         mark = 0
 
 
