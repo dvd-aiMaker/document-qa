@@ -1,6 +1,5 @@
 import streamlit as st
 from openai import OpenAI
-import os
 
 from PIL import Image
 import io
